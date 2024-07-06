@@ -8,6 +8,7 @@ This project born from my will to make class diagrams fast but not finding a goo
 
 ## Goals
 
-- [ ] Basic interface elements working (topbar, sidebar, mainview)
-- [ ] Mermaid logic (transpilation from classes to mermaid code)
+- [X] Basic interface elements (topbar, sidebar, mainview)
+- [ ] Class & attribute CRUD
+- [ ] Mermaid logic (transpilation from models to mermaid code)
 - ....
