@@ -1,5 +1,7 @@
 <div class="bg-zinc-900 w-full h-screen text-slate-200">
-  <app-topbar/>
-  <app-sidebar class="h-full"></app-sidebar>
-  <app-mainview></app-mainview>
+  <app-topbar class="top-0 left-0 fixed z-20 w-full"/>
+  <div class="flex w-screen h-screen">
+    <app-sidebar [classes]="classes" class="h-full top-0 left-0 sticky"></app-sidebar>
+    <app-mainview class=""></app-mainview>
+  </div>
 </div>
