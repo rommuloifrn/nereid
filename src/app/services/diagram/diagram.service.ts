@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { afterNextRender, afterRender, Injectable } from '@angular/core';
 import { Class } from "../../class";
 import { Diagram } from '../../diagram';
 
@@ -25,7 +25,7 @@ export class DiagramService {
     }
   ]
 
-  currentDiagram: Diagram = this.getDiagram() //{"classes":this.classList}
+  currentDiagram: Diagram = {"classes":this.classList}
 
   create() {
     this.currentDiagram.classes.push({"title":"ximbas","attributes":[]});
@@ -37,12 +37,17 @@ export class DiagramService {
     localStorage.setItem("diagram", stringDiagram);
   }
 
-  getDiagram() {
-    let diagram: string | null = "";
-    if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
-    if (diagram == null) diagram = "";
-    return JSON.parse(diagram);
+  constructor() {
+    afterRender(()=>{
+      let diagram: string | null = "";
+      if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
+      if (diagram == null) diagram = "";
+      this.currentDiagram = JSON.parse(diagram);
+      console.log("lgoaassssss");
+      console.log("diagram:");
+      
+      console.log(this.currentDiagram);
+      
+    })
   }
-
-  constructor() { }
 }

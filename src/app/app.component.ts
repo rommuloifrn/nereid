@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Class } from './class';
 import { MainviewComponent } from './components/mainview/mainview.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { DiagramService } from './services/diagram/diagram.service';
+import { Diagram } from './diagram';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,6 @@ import { DiagramService } from './services/diagram/diagram.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent{
+export class AppComponent {
   title = 'nereid';
-
-  diagramService: DiagramService = inject(DiagramService)
-
-  classes: Class[] = this.diagramService.currentDiagram.classes;
 }

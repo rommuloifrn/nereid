@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Class } from '../../class';
+import { Component, inject } from '@angular/core';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
+import { DiagramService } from '../../services/diagram/diagram.service';
+import { Diagram } from '../../diagram';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,5 +15,6 @@ import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.com
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  @Input() classes: Class[] = []
+  diagramService: DiagramService = inject(DiagramService)
+  diagram: Diagram = this.diagramService.currentDiagram;
 }
