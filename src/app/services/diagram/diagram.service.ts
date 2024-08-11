@@ -8,9 +8,27 @@ export class DiagramService {
 
   currentDiagram: Diagram = {"classes":[]}//{"classes":this.classList}
 
-  create() {
-    this.currentDiagram.classes.push({"title":"ximbas","attributes":[]});
-    this.saveDiagram();
+  AddClass(title: string): boolean {
+    let uniqueTitle: boolean = true;
+    this.currentDiagram.classes.forEach(c => {
+      if (c.title == title) uniqueTitle = false
+    });
+    
+    if (uniqueTitle == true && title != "") {
+      this.currentDiagram.classes.push({"title":title,"attributes":[]});
+      this.saveDiagram();
+      return true;
+    }
+    return false;
+  }
+
+  deleteClass(title: string) {
+    this.currentDiagram.classes.forEach((c, index) => {
+      if (c.title == title) {
+        this.currentDiagram.classes.splice(index, 1); 
+        this.saveDiagram();
+      } 
+    });
   }
 
   saveDiagram() {
