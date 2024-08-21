@@ -23,5 +23,5 @@ export class AppComponent {
   title = 'nereid';
 
   diagramService: DiagramService = inject(DiagramService)
-  classesFromService = this.diagramService.currentDiagram.classes
+  currentDiagram = this.diagramService.currentDiagram
 }
