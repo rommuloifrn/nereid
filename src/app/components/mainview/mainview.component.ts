@@ -1,8 +1,9 @@
-import { afterNextRender, Component, ElementRef, inject, OnChanges, ViewChild } from '@angular/core';
+import { afterNextRender, Component, ElementRef, inject, Input, OnChanges, ViewChild } from '@angular/core';
 import mermaid from 'mermaid';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { Diagram } from 'mermaid/dist/Diagram';
 import { CommonModule } from '@angular/common';
+import { Class } from '../../class';
 
 @Component({
   selector: 'app-mainview',
@@ -15,8 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MainviewComponent{ //https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
 
-  diagramService: DiagramService = inject(DiagramService)
-  classes = this.diagramService.currentDiagram.classes
+  @Input({required: true}) classes!: Class[];
 
   constructor(){
     afterNextRender(()=>{
