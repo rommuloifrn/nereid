@@ -1,4 +1,5 @@
 import { afterRender, Injectable } from '@angular/core';
+import mermaid from 'mermaid';
 import { Diagram } from '../../diagram';
 
 @Injectable({
@@ -17,6 +18,15 @@ export class DiagramService {
     if (uniqueTitle == true && title != "") {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
       this.saveDiagram();
+
+        console.log("xibmas");
+        const target: HTMLElement = document.getElementById("mermid")!
+        mermaid.render(
+          "mermid",
+          target.innerText,
+          target
+        )
+
       return true;
     }
     return false;

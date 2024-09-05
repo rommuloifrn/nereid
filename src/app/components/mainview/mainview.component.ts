@@ -1,8 +1,6 @@
-import { afterNextRender, Component, ElementRef, inject, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import mermaid from 'mermaid';
-import { DiagramService } from '../../services/diagram/diagram.service';
-import { Diagram } from 'mermaid/dist/Diagram';
 import { CommonModule } from '@angular/common';
+import { afterNextRender, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import mermaid from 'mermaid';
 import { Class } from '../../class';
 
 @Component({
@@ -27,13 +25,25 @@ export class MainviewComponent implements OnChanges{ //https://stackoverflow.com
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-      afterNextRender(()=>{
-        let componentId = "mermid";
-        let component = document.getElementById(componentId)?.innerHTML;
-        let diagram = component != null ? component : "";
-        let container = document.getElementById(componentId)!;
-        mermaid.render(componentId, diagram, container)
-      })
+      // afterNextRender(()=>{
+      //   let componentId = "mermid";
+      //   let component = document.getElementById(componentId)?.innerHTML;
+      //   let diagram = component != null ? component : "";
+      //   let container = document.getElementById(componentId)!;
+      //   mermaid.render(componentId, diagram, container)
+      // })
+
+
+
+      // if (typeof document != undefined) {
+      //   console.log("xibmas");
+      //   const target: HTMLElement = document.getElementById("mermid")!
+      //   mermaid.render(
+      //     "mermid",
+      //     target.innerText,
+      //     target
+      //   )
+      // }
   }
   
 }
