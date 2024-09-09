@@ -46,6 +46,16 @@ export class DiagramService {
     localStorage.setItem("diagram", stringDiagram);
   }
 
+  generateDiagram(d: Diagram){
+    let title = "---\n title: EXAMPLETITLE\n ---\n"
+    let body: string = "classdiagram\n"
+
+    for (var c of d.classes) {
+      body.concat(c)
+    }
+    
+  }
+
   constructor() {
     afterRender(()=>{
       let diagram: string | null = "";

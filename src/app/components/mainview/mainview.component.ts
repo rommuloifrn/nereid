@@ -15,7 +15,6 @@ import { Class } from '../../class';
 export class MainviewComponent implements OnChanges{ //https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
 
   @Input({required: true}) classes!: Class[];
-
   constructor(){
     afterNextRender(()=>{
       read: () => {
