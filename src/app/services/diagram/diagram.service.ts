@@ -23,7 +23,7 @@ export class DiagramService {
         const target: HTMLElement = document.getElementById("mermid")!
         mermaid.render(
           "mermid",
-          target.innerText,
+          this.generateDiagram(this.currentDiagram),
           target
         )
 
@@ -47,13 +47,19 @@ export class DiagramService {
   }
 
   generateDiagram(d: Diagram){
-    let title = "---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classdiagram\n"
+    let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
+    let body: string = "classDiagram\n"
 
     for (var c of d.classes) {
-      body.concat(c)
+      body = body.concat("class ", c.title, "\n");
+      for(var a of c.attributes) {
+        body = body.concat("String: ", a.title, "\n");
+      }
     }
-    
+    body.concat("eita manézao")
+    var final = title.concat(body);
+    console.log(final);
+    return final;
   }
 
   constructor() {
