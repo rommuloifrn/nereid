@@ -18,18 +18,20 @@ export class DiagramService {
     if (uniqueTitle == true && title != "") {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
       this.saveDiagram();
+      this.updateDiagramRender()
 
-        console.log("xibmas");
-        const target: HTMLElement = document.getElementById("mermid")!
+      return true;
+    }
+    return false;
+  }
+
+  updateDiagramRender(){
+    const target: HTMLElement = document.getElementById("mermid")!
         mermaid.render(
           "mermid",
           this.generateDiagram(this.currentDiagram),
           target
         )
-
-      return true;
-    }
-    return false;
   }
 
   deleteClass(title: string) {
@@ -37,6 +39,7 @@ export class DiagramService {
       if (c.title == title) {
         this.currentDiagram.classes.splice(index, 1); 
         this.saveDiagram();
+        this.updateDiagramRender()
       } 
     });
   }
