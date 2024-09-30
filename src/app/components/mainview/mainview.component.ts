@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { afterNextRender, Component, inject, Input } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { Class } from '../../class';
 import { DiagramService } from '../../services/diagram/diagram.service';
 
@@ -16,14 +16,29 @@ export class MainviewComponent {
 
   ds: DiagramService = inject(DiagramService)
 
-  @Input({required: true}) classes!: Class[];
+  async openingTheShop() {
+    await this.ds.loadDiagram();
+    this.ds.updateDiagramRender();
+  }
+
+  //@Input({required: true}) classes!: Class[];
+  classes: Class[] = this.ds.currentDiagram.classes
   constructor(){
     afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
       read: () => {
         //void mermaid.init()
-        this.ds.loadDiagram();
+
+        setTimeout(() => {
+          this.ds.loadDiagram(); 
+        });
         this.ds.updateDiagramRender();
+        console.log("xerecas!");
+        
+
+        //this.openingTheShop()
       }
+      console.log(this.ds.currentDiagram);
+      
     })
   }
   
