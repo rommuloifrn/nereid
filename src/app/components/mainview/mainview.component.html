@@ -1,6 +1,14 @@
 <p>mainview works! </p>
 <pre id="mermid" #mermaid class="mermaid w-full">
-a
+  ---
+  title: Bank example
+  ---
+  classDiagram
+      class BankAccount
+      BankAccount : +String owner
+      BankAccount : +Bigdecimal balance
+      BankAccount : +deposit(amount)
+      BankAccount : +withdrawal(amount)
 </pre>
 
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { afterNextRender, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import mermaid from 'mermaid';
+import { afterNextRender, Component, inject, Input } from '@angular/core';
 import { Class } from '../../class';
+import { DiagramService } from '../../services/diagram/diagram.service';
 
 @Component({
   selector: 'app-mainview',
@@ -12,37 +12,19 @@ import { Class } from '../../class';
   templateUrl: './mainview.component.html',
   styleUrl: './mainview.component.css'
 })
-export class MainviewComponent implements OnChanges{ //https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
+export class MainviewComponent {
+
+  ds: DiagramService = inject(DiagramService)
 
   @Input({required: true}) classes!: Class[];
   constructor(){
-    afterNextRender(()=>{
+    afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
       read: () => {
-        void mermaid.init()
+        //void mermaid.init()
+        this.ds.loadDiagram();
+        this.ds.updateDiagramRender();
       }
     })
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-      // afterNextRender(()=>{
-      //   let componentId = "mermid";
-      //   let component = document.getElementById(componentId)?.innerHTML;
-      //   let diagram = component != null ? component : "";
-      //   let container = document.getElementById(componentId)!;
-      //   mermaid.render(componentId, diagram, container)
-      // })
-
-
-
-      // if (typeof document != undefined) {
-      //   console.log("xibmas");
-      //   const target: HTMLElement = document.getElementById("mermid")!
-      //   mermaid.render(
-      //     "mermid",
-      //     target.innerText,
-      //     target
-      //   )
-      // }
   }
   
 }

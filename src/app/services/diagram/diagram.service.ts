@@ -65,12 +65,25 @@ export class DiagramService {
     return final;
   }
 
+  loadDiagram() {
+    if (typeof document != undefined) {
+      this.currentDiagram = JSON.parse(localStorage.getItem("diagram")!);
+      const target: HTMLElement = document.getElementById("mermid")!
+      // mermaid.render(
+      //   "mermid",
+      //   target.innerText,
+      //   target
+      // )
+    }
+  }
+
   constructor() {
     afterRender(()=>{
-      let diagram: string | null = "";
-      if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
-      if (diagram == null) diagram = "";
-      this.currentDiagram = JSON.parse(diagram);
+      // let diagram: string | null = "";
+      // if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
+      // if (diagram == null) diagram = "";
+      // this.currentDiagram = JSON.parse(diagram);
+      this.loadDiagram();
     })
   }
 
