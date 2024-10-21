@@ -27,11 +27,9 @@ export class DiagramService {
 
   updateDiagramRender(){
     const target: HTMLElement = document.getElementById("mermid")!
-        mermaid.render(
-          "mermid",
-          this.generateDiagram(this.currentDiagram),
-          target
-        )
+    let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
+    
+    mermaid.render("mermid", currentDiagramString, target)
   }
 
   deleteClass(title: string) {
@@ -65,25 +63,15 @@ export class DiagramService {
     return final;
   }
 
-  loadDiagram() {
+  loadDiagramFromStorage() {
     if (typeof document != undefined) {
       this.currentDiagram = JSON.parse(localStorage.getItem("diagram")!);
-      const target: HTMLElement = document.getElementById("mermid")!
-      // mermaid.render(
-      //   "mermid",
-      //   target.innerText,
-      //   target
-      // )
     }
   }
 
   constructor() {
     afterRender(()=>{
-      // let diagram: string | null = "";
-      // if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
-      // if (diagram == null) diagram = "";
-      // this.currentDiagram = JSON.parse(diagram);
-      this.loadDiagram();
+      this.loadDiagramFromStorage();
     })
   }
 

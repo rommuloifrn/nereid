@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { Class } from '../../class';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
 
@@ -14,5 +15,7 @@ import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.com
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  diagramService: DiagramService = inject(DiagramService)
+  ds: DiagramService = inject(DiagramService)
+
+  classes: Class[] = this.ds.currentDiagram.classes
 }

@@ -17,8 +17,10 @@ export class MainviewComponent {
   ds: DiagramService = inject(DiagramService)
 
   async openingTheShop() {
-    await this.ds.loadDiagram();
-    this.ds.updateDiagramRender();
+    await this.ds.loadDiagramFromStorage();
+    setTimeout(() => {
+      this.ds.updateDiagramRender(); 
+    });
   }
 
   //@Input({required: true}) classes!: Class[];
@@ -27,16 +29,9 @@ export class MainviewComponent {
     afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
       read: () => {
         //void mermaid.init()
-
-        setTimeout(() => {
-          this.ds.loadDiagram(); 
-        });
-        this.ds.updateDiagramRender();
-        console.log("xerecas!");
-        
-
-        //this.openingTheShop()
       }
+
+      //this.openingTheShop()
       console.log(this.ds.currentDiagram);
       
     })
