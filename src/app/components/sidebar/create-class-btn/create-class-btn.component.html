@@ -1,8 +1,8 @@
-<div class="bg-pink-800 hover:bg-pink-900 border-b-2 hover:border-pink-800 border-pink-700 transition font-semibold p-2 mx-1 rounded cursor-pointer">
+<div class=" transition font-semibold p-2 mx-1 rounded">
     
         <div>
-            <input type="text" [(ngModel)]="classTitle" class="w-full text-zinc-800">
+            <input type="text" [(ngModel)]="classTitle" class="w-full  border-b border-zinc-300 bg-transparent text-sm focus:outline-none focus:border-b-2 font-normal" placeholder="Type the name for a class">
         </div>
     
-    <p (click)="create()">Create</p>
+    <div (click)="create()" class="w-min hover:text-green-600 transition cursor-pointer">Create</div>
 </div>
