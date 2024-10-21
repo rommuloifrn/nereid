@@ -1,6 +1,36 @@
-<p>mainview works!</p>
-<pre #mermaid class="mermaid">
+<pre id="mermid" #mermaid class="mermaid">
   ---
+  title: Bank example
+  ---
+  classDiagram
+      BankAccount -- Ximbareneuosn
+      Catita -- fofinha
+
+      xerecas -- catitas
+      carias -- mendoncas
+
+      canelas - debarro
+      catitas -- aaa
+      aaa -- canhotas
+      canhotas -- ferreiras
+
+      class BankAccount
+      BankAccount : +String owner
+      BankAccount : +Bigdecimal balance
+      BankAccount : +deposit(amount)
+      BankAccount : +withdrawal(amount)
+</pre>
+
+
+<!--
+<pre id="dia" #mermaid class="mermaid" *ngFor="let classe of classes">
+  classDiagram
+      class {{classe.title}}
+      
+</pre>
+-->
+
+<!-----
   title: Bank example
   ---
   classDiagram
@@ -9,10 +39,4 @@
       BankAccount : +Bigdecimal balance
       BankAccount : +deposit(amount)
       BankAccount : +withdrawal(amount)
-</pre>
-
-<pre id="dia" #mermaid class="mermaid" *ngFor="let classe of diagramService.currentDiagram.classes">
-  classDiagram
-      class {{classe.title}}
-      
-</pre>
+-->

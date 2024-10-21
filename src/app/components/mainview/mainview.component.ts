@@ -1,8 +1,7 @@
-import { afterNextRender, Component, ElementRef, inject, OnChanges, ViewChild } from '@angular/core';
-import mermaid from 'mermaid';
-import { DiagramService } from '../../services/diagram/diagram.service';
-import { Diagram } from 'mermaid/dist/Diagram';
 import { CommonModule } from '@angular/common';
+import { afterNextRender, Component, inject } from '@angular/core';
+import { Class } from '../../class';
+import { DiagramService } from '../../services/diagram/diagram.service';
 
 @Component({
   selector: 'app-mainview',
@@ -13,16 +12,29 @@ import { CommonModule } from '@angular/common';
   templateUrl: './mainview.component.html',
   styleUrl: './mainview.component.css'
 })
-export class MainviewComponent{ //https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
+export class MainviewComponent {
 
-  diagramService: DiagramService = inject(DiagramService)
-  classes = this.diagramService.currentDiagram.classes
+  ds: DiagramService = inject(DiagramService)
 
+  async openingTheShop() {
+    await this.ds.loadDiagramFromStorage();
+    setTimeout(() => {
+      this.ds.updateDiagramRender(); 
+    });
+  }
+
+  //@Input({required: true}) classes!: Class[];
+  classes: Class[] = this.ds.currentDiagram.classes
   constructor(){
-    afterNextRender(()=>{
+    afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
       read: () => {
-        void mermaid.init()
+        //void mermaid.init()
       }
+
+      //this.openingTheShop()
+      console.log(this.ds.currentDiagram);
+      
     })
   }
+  
 }

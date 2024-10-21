@@ -1,4 +1,5 @@
 import { afterRender, Injectable } from '@angular/core';
+import mermaid from 'mermaid';
 import { Diagram } from '../../diagram';
 
 @Injectable({
@@ -17,9 +18,18 @@ export class DiagramService {
     if (uniqueTitle == true && title != "") {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
       this.saveDiagram();
+      this.updateDiagramRender()
+
       return true;
     }
     return false;
+  }
+
+  updateDiagramRender(){
+    const target: HTMLElement = document.getElementById("mermid")!
+    let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
+    
+    mermaid.render("mermid", currentDiagramString, target)
   }
 
   deleteClass(title: string) {
@@ -27,6 +37,7 @@ export class DiagramService {
       if (c.title == title) {
         this.currentDiagram.classes.splice(index, 1); 
         this.saveDiagram();
+        this.updateDiagramRender()
       } 
     });
   }
@@ -36,12 +47,31 @@ export class DiagramService {
     localStorage.setItem("diagram", stringDiagram);
   }
 
+  generateDiagram(d: Diagram){
+    let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
+    let body: string = "classDiagram\n"
+
+    for (var c of d.classes) {
+      body = body.concat("class ", c.title, "\n");
+      for(var a of c.attributes) {
+        body = body.concat("String: ", a.title, "\n");
+      }
+    }
+    body.concat("eita manézao")
+    var final = title.concat(body);
+    console.log(final);
+    return final;
+  }
+
+  loadDiagramFromStorage() {
+    if (typeof document != undefined) {
+      this.currentDiagram = JSON.parse(localStorage.getItem("diagram")!);
+    }
+  }
+
   constructor() {
     afterRender(()=>{
-      let diagram: string | null = "";
-      if (localStorage.getItem("diagram") != null) diagram = localStorage.getItem("diagram");
-      if (diagram == null) diagram = "";
-      this.currentDiagram = JSON.parse(diagram);
+      this.loadDiagramFromStorage();
     })
   }
 

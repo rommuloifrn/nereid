@@ -1,4 +1,4 @@
-import { Attribute } from "@angular/core"
+import { Attribute } from "./attribute"
 
 export interface Class {
     title: string
