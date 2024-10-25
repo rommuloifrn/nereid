@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopbarComponent } from './topbar.component';
+import { DiagramClassBtnComponent } from './diagram-class-btn.component';
 
-describe('TopbarComponent', () => {
-  let component: TopbarComponent;
-  let fixture: ComponentFixture<TopbarComponent>;
+describe('DiagramClassBtnComponent', () => {
+  let component: DiagramClassBtnComponent;
+  let fixture: ComponentFixture<DiagramClassBtnComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TopbarComponent]
+      imports: [DiagramClassBtnComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TopbarComponent);
+    fixture = TestBed.createComponent(DiagramClassBtnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
