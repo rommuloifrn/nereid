@@ -15,7 +15,7 @@ export class CreateClassBtnComponent {
 
   diagramService: DiagramService = inject(DiagramService);
 
-  classTitle = "";
+  classTitle: string = "";
 
   create() {
     if (this.diagramService.AddClass(this.classTitle)) this.classTitle = "";;
