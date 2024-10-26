@@ -2,15 +2,15 @@
 class=" hover:bg-zinc-600 transition font-semibold p-2 m-1 rounded cursor-pointer flex flex-col justify-center">
     <div class="flex items-center">
         <svg width="18" height="20" fill="none" class="mr-1"><g clip-path="url(#a)"><path stroke="#fff" stroke-width="2" d="M0 7h23"/></g><path stroke="#fff" stroke-width="2" d="M1 1h16v18H1z"/><defs><clipPath id="a"><path fill="#fff" d="M0 0h18v20H0z"/></clipPath></defs></svg>
-        {{class.title}}
+        {{class.title}} - <span (click)="this.ds.deleteClass(this.class.title)">delete</span>
     </div>
 
-    <div *ngFor="let att of class.attributes">
-        {{att}}
+    <div *ngFor="let att of class.attributes" class="bg-black">
+        {{att.title}}
     </div>
 
     <div>
-        <input type="text" [ngModel]="attTitle" placeholder="new att">
+        <input class="w-32" type="text" [ngModel]="attTitle" placeholder="new attribute">
         <div (click)="addAttribute()">
             create
         </div>
