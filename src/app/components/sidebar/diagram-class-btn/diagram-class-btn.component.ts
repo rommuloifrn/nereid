@@ -25,7 +25,7 @@ export class DiagramClassBtnComponent {
   addAttribute() {
     this.class.attributes.push(new Attribute(this.attTitle));
     this.attTitle = "";
-    console.log("adicionou");
+    
     this.ds.saveDiagram(); this.ds.updateDiagramRender()
   }
 }

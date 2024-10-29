@@ -5,12 +5,12 @@ class=" hover:bg-zinc-600 transition font-semibold p-2 m-1 rounded cursor-pointe
         {{class.title}} - <span (click)="this.ds.deleteClass(this.class.title)">delete</span>
     </div>
 
-    <div *ngFor="let att of class.attributes" class="bg-black">
+    <div *ngFor="let att of class.attributes" class="text-zinc-200 text-sm">
         {{att.title}}
     </div>
 
     <div>
-        <input class="w-32" type="text" [ngModel]="attTitle" placeholder="new attribute">
+        <input class="w-32" type="text" [(ngModel)]="attTitle" placeholder="new attribute">
         <div (click)="addAttribute()">
             create
         </div>
