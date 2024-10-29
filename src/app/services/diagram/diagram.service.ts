@@ -1,5 +1,6 @@
 import { afterRender, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
+import { Attribute } from '../../attribute';
 import { Diagram } from '../../diagram';
 
 @Injectable({
@@ -42,6 +43,16 @@ export class DiagramService {
     });
   }
 
+  addAtributeOnClass(classtitle: string, att: Attribute) {
+    this.currentDiagram.classes.forEach((c, index) => {
+      if (c.title == classtitle) {
+        //c.attributes.push(att);
+        this.saveDiagram();
+        this.updateDiagramRender()
+      } 
+    });
+  }
+
   saveDiagram() {
     let stringDiagram = JSON.stringify(this.currentDiagram);
     localStorage.setItem("diagram", stringDiagram);
@@ -54,7 +65,7 @@ export class DiagramService {
     for (var c of d.classes) {
       body = body.concat("class ", c.title, "\n");
       for(var a of c.attributes) {
-        body = body.concat("String: ", a.title, "\n");
+        body = body.concat(c.title.concat(" : "), a.title, "\n");
       }
     }
     body.concat("eita manézao")
@@ -64,14 +75,14 @@ export class DiagramService {
   }
 
   loadDiagramFromStorage() {
-    if (typeof document != undefined) {
+    if (typeof document != undefined) { // TODO: lógica pra caso o diagrama salvo seja nulo!!!!!!!
       this.currentDiagram = JSON.parse(localStorage.getItem("diagram")!);
     }
   }
 
   constructor() {
     afterRender(()=>{
-      this.loadDiagramFromStorage();
+      //this.loadDiagramFromStorage();
     })
   }
 

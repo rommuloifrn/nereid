@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
   classes: Class[] = this.ds.currentDiagram.classes
 
   ngOnInit(): void {
-    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 500)
+    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 1000)
   }
 
   updateClasses():void {
