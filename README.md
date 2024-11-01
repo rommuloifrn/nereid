@@ -6,6 +6,8 @@
 
 Diagram editor based on MermaidJS, born from my will to make class diagrams quickly but not finding a good alternative for linux.
 
+I am currently focusing on local save.
+
 ## How to run
 
     npm install
@@ -18,10 +20,11 @@ Then access [localhost:4200](localhost:4200)
 
 - [X] Basic interface elements (topbar, sidebar, mainview)
 - [X] Class CRUD
+- [X] Mermaid logic (transpilation from objects to mermaid code)
 - [ ] Attribute CRUD
 - [ ] Method CRUD
 - [ ] Relationship CRUD
-- [ ] Mermaid logic (transpilation from models to mermaid code)
+
 - ....
 
 ## Side Backlog
