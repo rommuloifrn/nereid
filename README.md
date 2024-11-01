@@ -23,3 +23,7 @@ Then access [localhost:4200](localhost:4200)
 - [ ] Relationship CRUD
 - [ ] Mermaid logic (transpilation from models to mermaid code)
 - ....
+
+## Side Backlog
+
+- Test attribute CRUD with reactive forms so maybe i wouldnt need to declare a new classes array in sidebar template
