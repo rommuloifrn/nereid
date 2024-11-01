@@ -1,5 +1,9 @@
 import { Class } from "./class";
 
-export interface Diagram {
+export class Diagram {
     classes: Class[]
+
+    constructor(classes: Class[]) {
+        this.classes = classes;
+    }
 }

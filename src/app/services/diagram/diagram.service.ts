@@ -1,15 +1,16 @@
 import { afterRender, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
+import { Subject } from 'rxjs';
 import { Attribute } from '../../attribute';
 import { Diagram } from '../../diagram';
-import { Class } from '../../class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {"classes":[]}//{"classes":this.classList}
+  currentDiagram: Diagram = {"classes":[]}
+  bs: Subject<string> = new Subject();
 
   AddClass(title: string): boolean {
     
@@ -46,7 +47,7 @@ export class DiagramService {
   addAtributeOnClass(classtitle: string, att: Attribute) {
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.title == classtitle) {
-        //c.attributes.push(att);
+        c.attributes.push(att);
         this.saveDiagram();
         this.updateDiagramRender()
       } 
@@ -60,6 +61,8 @@ export class DiagramService {
     //target.innerHTML = '';
 
     mermaid.render("mermid", currentDiagramString, target)
+
+    this.bs.next("");
   }
 
 
@@ -87,13 +90,14 @@ export class DiagramService {
 
   constructor() {
     afterRender(()=>{
-      //this.loadDiagramFromStorage();
+      this.loadDiagramFromStorage();
     })
   }
 
   loadDiagramFromStorage() {
     if (typeof document != undefined) { // TODO: lógica pra caso o diagrama salvo seja nulo!!!!!!!
-      this.currentDiagram = JSON.parse(localStorage.getItem("diagram")!);
+      let savedDiagram: Diagram = JSON.parse(localStorage.getItem("diagram")!);
+      this.currentDiagram = savedDiagram;
     }
   }
 

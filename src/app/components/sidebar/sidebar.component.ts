@@ -20,9 +20,12 @@ export class SidebarComponent implements OnInit {
   ds: DiagramService = inject(DiagramService)
 
   classes: Class[] = this.ds.currentDiagram.classes
+  ximbas = this.ds.bs.subscribe(()=>{
+    this.classes = this.ds.currentDiagram.classes
+  })
 
   ngOnInit(): void {
-    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 1000)
+    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
   updateClasses():void {
