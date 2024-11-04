@@ -29,9 +29,13 @@ export class MainviewComponent {
     afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
       read: () => {
         //void mermaid.init()
+        console.log("ximbas");
+        
       }
 
-      //this.openingTheShop()
+      setTimeout(() => {
+        this.openingTheShop()
+      }, 100);
       console.log(this.ds.currentDiagram);
       
     })
