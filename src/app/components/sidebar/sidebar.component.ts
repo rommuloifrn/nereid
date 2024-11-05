@@ -19,7 +19,7 @@ import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.
 export class SidebarComponent implements OnInit {
   ds: DiagramService = inject(DiagramService)
 
-  classes: Class[] = this.ds.currentDiagram.classes
+  classes: Class[] = this.ds.currentDiagram.classes //this.ds.getDiagramFromLocalStorage().classes
   ximbas = this.ds.bs.subscribe(()=>{
     this.classes = this.ds.currentDiagram.classes
   })

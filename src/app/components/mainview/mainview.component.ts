@@ -19,7 +19,7 @@ export class MainviewComponent {
 
   constructor(){    
     setTimeout(() => {
-      this.ds.updateDiagramRender(); 
+      this.ds.updateDiagramRender();
     }, 100); // isso aqui é basicamente pra dar tempo até o diagrama ser carregado do localStorage. Não é definitivo.
   }
   
