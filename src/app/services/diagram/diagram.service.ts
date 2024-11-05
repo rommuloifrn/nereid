@@ -54,7 +54,7 @@ export class DiagramService {
     });
   }
 
-  updateDiagramRender(){
+  updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
     const target: HTMLElement = document.getElementById("mermid")!
     let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
