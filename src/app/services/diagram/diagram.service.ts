@@ -55,14 +55,16 @@ export class DiagramService {
   }
 
   updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
-    const target: HTMLElement = document.getElementById("mermid")!
-    let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
+    if (this.areWeOnBrowser()) {
+      const target: HTMLElement = document.getElementById("mermid")!
+      let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
-    //target.innerHTML = '';
+      //target.innerHTML = '';
 
-    mermaid.render("mermid", currentDiagramString, target)
+      mermaid.render("mermid", currentDiagramString, target)
 
-    this.bs.next("");
+      this.bs.next("");
+    }
   }
 
 
@@ -103,7 +105,7 @@ export class DiagramService {
   }
 
   areWeOnBrowser() {
-    return typeof document != undefined;
+    return typeof document != 'undefined';
   }
 
 }
