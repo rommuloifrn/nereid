@@ -25,8 +25,10 @@ Then access [localhost:4200](localhost:4200)
 - [ ] Method CRUD
 - [ ] Relationship CRUD
 
-- ....
+- [ ] Deal and store multiple diagrams
+- [ ] Objects to Mermaid code
+- [ ] Mermaid code to objects
 
-## Side Backlog
+## Test later
 
 - Test attribute CRUD with reactive forms so maybe i wouldnt need to declare a new classes array in sidebar template
