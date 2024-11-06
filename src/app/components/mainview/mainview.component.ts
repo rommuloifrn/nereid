@@ -15,26 +15,12 @@ import { DiagramService } from '../../services/diagram/diagram.service';
 export class MainviewComponent {
 
   ds: DiagramService = inject(DiagramService)
-
-  async openingTheShop() {
-    await this.ds.loadDiagramFromStorage();
-    setTimeout(() => {
-      this.ds.updateDiagramRender(); 
-    });
-  }
-
-  //@Input({required: true}) classes!: Class[];
   classes: Class[] = this.ds.currentDiagram.classes
-  constructor(){
-    afterNextRender(()=>{ // essa merda é necessaria mesmo se nao tiver nada dentro... https://stackoverflow.com/questions/60156296/problems-with-mermaid-integration-in-angular
-      read: () => {
-        //void mermaid.init()
-      }
 
-      //this.openingTheShop()
-      console.log(this.ds.currentDiagram);
-      
-    })
+  constructor(){    
+    setTimeout(() => {
+      this.ds.updateDiagramRender();
+    }, 100); // isso aqui é basicamente pra dar tempo até o diagrama ser carregado do localStorage. Não é definitivo.
   }
   
 }

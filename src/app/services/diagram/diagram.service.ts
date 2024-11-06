@@ -54,7 +54,7 @@ export class DiagramService {
     });
   }
 
-  updateDiagramRender(){
+  updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
     const target: HTMLElement = document.getElementById("mermid")!
     let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
@@ -95,10 +95,15 @@ export class DiagramService {
   }
 
   loadDiagramFromStorage() {
-    if (typeof document != undefined) { // TODO: lógica pra caso o diagrama salvo seja nulo!!!!!!!
+    if (this.areWeOnBrowser()) {
       let savedDiagram: Diagram = JSON.parse(localStorage.getItem("diagram")!);
-      this.currentDiagram = savedDiagram;
+      if (savedDiagram === null) this.currentDiagram = new Diagram([]);
+      else this.currentDiagram = savedDiagram;
     }
+  }
+
+  areWeOnBrowser() {
+    return typeof document != undefined;
   }
 
 }
