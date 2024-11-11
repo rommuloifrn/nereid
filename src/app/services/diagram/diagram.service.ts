@@ -60,7 +60,8 @@ export class DiagramService {
       let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
       //target.innerHTML = '';
-
+      
+      mermaid.init({class:{useMaxWidth:true, useWidth:800}, theme:"dark"})
       mermaid.render("mermid", currentDiagramString, target)
 
       this.bs.next("");
