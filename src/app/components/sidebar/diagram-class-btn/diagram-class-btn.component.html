@@ -13,9 +13,11 @@ class="transition font-semibold p-2 m-1 rounded flex flex-col justify-center">
     </div>
 
     <div>
-        <input class="w-32" type="text" [(ngModel)]="attTitle" placeholder="new attribute">
-        <div (click)="addAttribute()">
+        <form (submit)="addAttribute()">
+            <input class="w-32 text-sm bg-transparent font-normal border-b focus:outline-none focus:border-b-2" type="text" [(ngModel)]="attTitle" [ngModelOptions]="{standalone: true}" placeholder="new attribute">
+        </form>
+        <!-- <div (click)="addAttribute()">
             create
-        </div>
+        </div> -->
     </div>
 </div>
