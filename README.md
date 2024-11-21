@@ -4,6 +4,20 @@
 
 ![](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white) ![](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+Community
+
+    GitHub
+
+Open Collective
+Discord
+Awesome Badges
+Stats
+
+    Service Status
+
+Metrics dashboard
+Copyright © 2024 Shields.io. Built with Docusaurus.
+
 Diagram editor based on MermaidJS, born from my will to make class diagrams quickly but not finding a good alternative for linux.
 
 I am currently focusing on local save.
