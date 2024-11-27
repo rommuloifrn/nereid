@@ -8,6 +8,31 @@ Diagram editor based on MermaidJS, born from my will to make class diagrams quic
 
 Currently its only possible to save locally.
 
+## How it works
+
+```mermaid
+---
+title: Diagram Service (simplified)
+---
+classDiagram
+
+class DiagramService {
+    currentDiagram: Diagram
+
+    %%addClass()
+    %%classTitleIsValid(title:string)
+    %%deleteClass(title:string)
+    %%addAtributeOnClass(classtitle: string, att: Attribute)
+    loadDiagramFromStorage()
+    %%generateDiagram(d: Diagram)
+    updateDiagramRender()
+    saveDiagram()
+    
+    
+}
+
+```
+
 ## How to run
 
     npm install
