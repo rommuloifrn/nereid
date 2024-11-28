@@ -33,6 +33,22 @@ class DiagramService {
 
 ```
 
+### What happens when you add a class to the diagram?
+<!-- lembrar de usar métodos como atores e agrupar eles nos rsepectivos services.  -->
+```mermaid
+sequenceDiagram
+participant CreateClassBtnComponent
+participant DiagramService
+%%participant MainviewComponent
+participant mermaid
+CreateClassBtnComponent->>DiagramService: addClass(classTitle)
+DiagramService->>DiagramService: saveDiagram()
+DiagramService->>DiagramService: updateDiagramRender()
+DiagramService->>DiagramService: generateDiagramString()
+
+DiagramService->>mermaid: render()
+```
+
 ## How to run
 
     npm install
