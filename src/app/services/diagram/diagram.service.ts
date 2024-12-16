@@ -83,7 +83,7 @@ export class DiagramService {
 
   generateDiagram(d: Diagram){
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\n"
+    let body: string = "classDiagram\ndirection DT\n"
 
     for (var c of d.classes) {
       body = body.concat("class ", c.title, "\n");
