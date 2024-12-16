@@ -3,17 +3,19 @@ import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
 import { Attribute } from '../../attribute';
 import { Diagram } from '../../diagram';
+import { DiagramDirection } from '../../direction';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {"classes":[]}
+  currentDiagram: Diagram = {classes:[]};
   bs: Subject<string> = new Subject();
+  direction: DiagramDirection = new DiagramDirection;
 
   initializeMermaid() {
-    mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
+    mermaid.init({'theme':'dark'})
   }
 
   AddClass(title: string): boolean {
@@ -63,9 +65,6 @@ export class DiagramService {
       const target: HTMLElement = document.getElementById("mermid")!
       let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
-      //target.innerHTML = '';
-      
-      mermaid.init({'theme':'dark'})
       const {svg} = await mermaid.render("graphDiv", currentDiagramString)
       target.innerHTML = svg;
       
@@ -87,7 +86,7 @@ export class DiagramService {
 
   generateDiagram(d: Diagram){
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\ndirection DT\n"
+    let body: string = `classDiagram\ndirection ${this.direction.value}\n`
 
     for (var c of d.classes) {
       body = body.concat("class ", c.title, "\n");
@@ -97,8 +96,14 @@ export class DiagramService {
     }
     //body.concat("eita manézao")
     var final = title.concat(body);
-    console.log(final);
+    //console.log(final);
     return final;
+  }
+
+  rotate() {
+    this.direction.next();
+    
+    this.updateDiagramRender();
   }
 
   constructor() {
