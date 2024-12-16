@@ -3,13 +3,21 @@ import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
 import { Attribute } from '../../attribute';
 import { Diagram } from '../../diagram';
+import { Class } from '../../class';
+import { Relationship } from '../../relationship';
+import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {"classes":[]}
+  currentDiagram: Diagram = {"classes":[], "relationships":[{
+    leftPartner:{"title":"ximbas", "attributes":[]},
+    rightPartner:{"title":"ximbas", "attributes":[]},
+    leftSymbol:"",
+    rightSymbol:""
+  }]}
   bs: Subject<string> = new Subject();
 
   initializeMermaid() {
@@ -27,6 +35,16 @@ export class DiagramService {
     }
     
     return false;
+  }
+
+  AddRelationship(leftPartner: Class, rightPartner: Class) {
+    let r: Relationship = new Relationship(leftPartner, "", rightPartner, "");
+    this.currentDiagram.relationships.push(
+      r
+    );
+    this.updateDiagramRender();
+    console.log(r.leftPartner.title);
+    
   }
 
   classTitleIsValid(title: string): boolean {
@@ -110,7 +128,7 @@ export class DiagramService {
   loadDiagramFromStorage() {
     if (this.areWeOnBrowser()) {
       let savedDiagram: Diagram = JSON.parse(localStorage.getItem("diagram")!);
-      if (savedDiagram === null) this.currentDiagram = new Diagram([]);
+      if (savedDiagram === null) this.currentDiagram = new Diagram([], []);
       else this.currentDiagram = savedDiagram;
     }
   }
