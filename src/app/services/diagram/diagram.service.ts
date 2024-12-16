@@ -12,6 +12,10 @@ export class DiagramService {
   currentDiagram: Diagram = {"classes":[]}
   bs: Subject<string> = new Subject();
 
+  initializeMermaid() {
+    mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
+  }
+
   AddClass(title: string): boolean {
     
     if (this.classTitleIsValid(title)) {
