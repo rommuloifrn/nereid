@@ -64,7 +64,10 @@ export class DiagramService {
       mermaid.init({'theme':'dark'})
       const {svg} = await mermaid.render("graphDiv", currentDiagramString)
       target.innerHTML = svg;
-      console.log(svg);
+      
+      const mysvg: HTMLElement = document.getElementById("graphDiv")!
+
+      mysvg.style.removeProperty('maxWidth');
       
 
       this.bs.next("");
