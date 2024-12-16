@@ -54,15 +54,18 @@ export class DiagramService {
     });
   }
 
-  updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
+  async updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
     if (this.areWeOnBrowser()) {
       const target: HTMLElement = document.getElementById("mermid")!
       let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
     
       //target.innerHTML = '';
       
-      mermaid.init({class:{useMaxWidth:true, useWidth:800}, theme:"dark"})
-      mermaid.render("mermid", currentDiagramString, target)
+      mermaid.init({'theme':'dark'})
+      const {svg} = await mermaid.render("graphDiv", currentDiagramString)
+      target.innerHTML = svg;
+      console.log(svg);
+      
 
       this.bs.next("");
     }
