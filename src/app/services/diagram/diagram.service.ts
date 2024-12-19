@@ -29,7 +29,7 @@ export class DiagramService {
     if (this.classTitleIsValid(title)) {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
       this.saveDiagram();
-      this.updateDiagramRender()
+      this.updateDiagramRender();
 
       return true;
     }
@@ -42,6 +42,7 @@ export class DiagramService {
     this.currentDiagram.relationships.push(
       r
     );
+    this.saveDiagram();
     this.updateDiagramRender();
     console.log(r.leftPartner.title);
     
