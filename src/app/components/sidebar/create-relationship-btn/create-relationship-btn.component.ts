@@ -24,6 +24,10 @@ export class CreateRelationshipBtnComponent {
     setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
+  ximbas = this.ds.bs.subscribe(()=>{
+    this.classes = this.ds.currentDiagram.classes
+  })
+
   create() {
     this.ds.AddRelationship(
       this.leftPartner, this.rightPartner
