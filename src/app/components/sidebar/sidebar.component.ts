@@ -37,7 +37,4 @@ export class SidebarComponent implements OnInit {
     setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
-  updateClasses():void {
-    this.classes = this.ds.currentDiagram.classes
-  }
 }
