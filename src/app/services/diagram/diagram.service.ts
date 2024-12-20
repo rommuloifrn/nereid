@@ -59,12 +59,17 @@ export class DiagramService {
 
   deleteClass(title: string) {
     this.currentDiagram.classes.forEach((c, index) => {
-      if (c.title == title) {
+      if (c.title == title) 
         this.currentDiagram.classes.splice(index, 1); 
-        this.saveDiagram();
-        this.updateDiagramRender()
-      } 
     });
+
+    this.currentDiagram.relationships.forEach((r, index)=>{
+      if ((r.leftPartner.title == title) || (r.rightPartner.title = title)) 
+        this.currentDiagram.relationships.splice(index, 1);
+    })
+
+    this.saveDiagram();
+    this.updateDiagramRender()
   }
 
   addAtributeOnClass(classtitle: string, att: Attribute) {
@@ -106,7 +111,11 @@ export class DiagramService {
 
   generateDiagram(d: Diagram){
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\ndirection DT\n"
+    let body: string = "classDiagram\ndirection DT\n";
+
+    for (var r of d.relationships) {
+      body = body.concat(r.leftPartner.title, " ", " -- ", " ", r.rightPartner.title, "\n");
+    }
 
     for (var c of d.classes) {
       body = body.concat("class ", c.title, "\n");
@@ -114,7 +123,7 @@ export class DiagramService {
         body = body.concat(c.title.concat(" : "), a.title, "\n");
       }
     }
-    //body.concat("eita manézao")
+    
     var final = title.concat(body);
     console.log(final);
     return final;
