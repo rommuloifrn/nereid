@@ -10,6 +10,7 @@ import { Relationship } from '../../../relationship';
 })
 export class DiagramRelationshipBtnComponent {
   @Input({required: true}) relationship: Relationship = {
+    id:0,
     leftPartner:{"title":"ximbas", "attributes":[]},
     rightPartner:{"title":"ximbas", "attributes":[]},
     leftSymbol:"",

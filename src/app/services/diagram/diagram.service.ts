@@ -2,10 +2,9 @@ import { afterRender, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
 import { Attribute } from '../../attribute';
-import { Diagram } from '../../diagram';
 import { Class } from '../../class';
+import { Diagram } from '../../diagram';
 import { Relationship } from '../../relationship';
-import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +12,14 @@ import { log } from 'console';
 export class DiagramService {
 
   currentDiagram: Diagram = {"classes":[], "relationships":[{
+    id:0,
     leftPartner:{"title":"ximbas", "attributes":[]},
     rightPartner:{"title":"ximbas", "attributes":[]},
     leftSymbol:"",
     rightSymbol:""
   }]}
   bs: Subject<string> = new Subject();
+  lastRelationshipIdUsed = 0;
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -38,13 +39,13 @@ export class DiagramService {
   }
 
   AddRelationship(leftPartner: Class, rightPartner: Class) {
-    let r: Relationship = new Relationship(leftPartner, "", rightPartner, "");
+    let r: Relationship = new Relationship(this.lastRelationshipIdUsed++, leftPartner, "", rightPartner, "");
     this.currentDiagram.relationships.push(
       r
     );
     this.saveDiagram();
     this.updateDiagramRender();
-    console.log(r.leftPartner.title);
+    console.log(r.id);
     
   }
 

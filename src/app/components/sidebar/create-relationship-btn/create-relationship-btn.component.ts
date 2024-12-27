@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { DiagramService } from '../../../services/diagram/diagram.service';
-import { CommonModule, NgFor } from '@angular/common';
-import { Class } from '../../../class';
 import { FormsModule } from '@angular/forms';
+import { Class } from '../../../class';
+import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({
   selector: 'app-create-relationship-btn',
