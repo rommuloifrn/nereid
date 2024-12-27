@@ -1,5 +1,5 @@
-<div>
+<div class="hover:cursor-pointer hover:bg-red-500" (click)="remove(relationship.id)">
     {{relationship.leftPartner.title}} 
     {{relationship.leftSymbol}} -- {{relationship.rightSymbol}} 
-    {{relationship.rightPartner.title}}
+    {{relationship.rightPartner.title}} ({{relationship.id}})
 </div>

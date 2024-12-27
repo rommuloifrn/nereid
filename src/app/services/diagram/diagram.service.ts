@@ -49,6 +49,19 @@ export class DiagramService {
     
   }
 
+  removeRelationship(id: number) {
+    let target = this.currentDiagram.relationships.filter((r)=>r.id == id)
+    console.log(target);
+    console.log(this.currentDiagram.relationships);
+    
+    
+    let spliceIndex = this.currentDiagram.relationships.indexOf(target[0]);
+    this.currentDiagram.relationships.splice(spliceIndex, 1);
+
+    this.saveDiagram();
+    this.updateDiagramRender();
+  }
+
   classTitleIsValid(title: string): boolean {
     for (let x of this.currentDiagram.classes)
       if (x.title == title) return false;

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Relationship } from '../../../relationship';
+import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({
   selector: 'app-diagram-relationship-btn',
@@ -16,4 +17,10 @@ export class DiagramRelationshipBtnComponent {
     leftSymbol:"",
     rightSymbol:""
   };
+
+  ds: DiagramService = inject(DiagramService);
+
+  remove(id: number) {
+    this.ds.removeRelationship(id);
+  }
 }
