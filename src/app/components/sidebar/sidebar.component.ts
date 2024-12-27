@@ -4,6 +4,9 @@ import { Class } from '../../class';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
 import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.component';
+import { DiagramRelationshipBtnComponent } from './diagram-relationship-btn/diagram-relationship-btn.component';
+import { Relationship } from '../../relationship';
+import { CreateRelationshipBtnComponent } from './create-relationship-btn/create-relationship-btn.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +14,9 @@ import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.
   imports: [
     CommonModule,
     CreateClassBtnComponent,
-    DiagramClassBtnComponent
+    DiagramClassBtnComponent,
+    DiagramRelationshipBtnComponent,
+    CreateRelationshipBtnComponent
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
@@ -20,15 +25,16 @@ export class SidebarComponent implements OnInit {
   ds: DiagramService = inject(DiagramService)
 
   classes: Class[] = this.ds.currentDiagram.classes //this.ds.getDiagramFromLocalStorage().classes
+  relationships: Relationship[] = this.ds.currentDiagram.relationships
   ximbas = this.ds.bs.subscribe(()=>{
     this.classes = this.ds.currentDiagram.classes
+    this.relationships = this.ds.currentDiagram.relationships
+    console.log("situationships!");
+    
   })
 
   ngOnInit(): void {
     setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
-  updateClasses():void {
-    this.classes = this.ds.currentDiagram.classes
-  }
 }
