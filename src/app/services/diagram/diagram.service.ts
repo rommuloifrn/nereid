@@ -10,9 +10,9 @@ import { DiagramDirection } from '../../direction';
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {classes:[]};
+  currentDiagram: Diagram = {classes:[], direction: new DiagramDirection()};
   bs: Subject<string> = new Subject();
-  direction: DiagramDirection = new DiagramDirection;
+  //direction: DiagramDirection = new DiagramDirection;
 
   initializeMermaid() {
     mermaid.init({'theme':'dark'})
@@ -86,7 +86,7 @@ export class DiagramService {
 
   generateDiagram(d: Diagram){
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = `classDiagram\ndirection ${this.direction.value}\n`
+    let body: string = `classDiagram\ndirection ${this.currentDiagram.direction.value}\n`
 
     for (var c of d.classes) {
       body = body.concat("class ", c.title, "\n");
@@ -101,8 +101,13 @@ export class DiagramService {
   }
 
   rotate() {
-    this.direction.next();
+    //this.currentDiagram.direction.next();
+    if (this.currentDiagram.direction.value == "RL") this.currentDiagram.direction.value = "TD"
+    else if (this.currentDiagram.direction.value == "TD") this.currentDiagram.direction.value = "RL"
+
+    console.log(this.generateDiagram(this.currentDiagram));
     
+    this.saveDiagram()
     this.updateDiagramRender();
   }
 
