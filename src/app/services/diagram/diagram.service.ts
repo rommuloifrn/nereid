@@ -11,15 +11,21 @@ import { Relationship } from '../../relationship';
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {"classes":[], "relationships":[{
-    id:0,
-    leftPartner:{"title":"ximbas", "attributes":[]},
-    rightPartner:{"title":"ximbas", "attributes":[]},
-    leftSymbol:"",
-    rightSymbol:""
-  }]}
+  currentDiagram: Diagram = {
+    "classes":[], 
+    "relationships":[
+      {
+        id:0,
+        leftPartner:{"title":"ximbas", "attributes":[]},
+        rightPartner:{"title":"ximbas", "attributes":[]},
+        leftSymbol:"",
+        rightSymbol:""
+      }
+    ],
+    "nextRelationshipId":0
+  }
   bs: Subject<string> = new Subject();
-  lastRelationshipIdUsed = 0;
+  //nextRelationshipId = 0;
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -39,7 +45,7 @@ export class DiagramService {
   }
 
   AddRelationship(leftPartner: Class, rightPartner: Class) {
-    let r: Relationship = new Relationship(this.lastRelationshipIdUsed++, leftPartner, "", rightPartner, "");
+    let r: Relationship = new Relationship(this.currentDiagram.nextRelationshipId++, leftPartner, "", rightPartner, "");
     this.currentDiagram.relationships.push(
       r
     );
