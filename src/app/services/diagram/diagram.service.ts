@@ -78,7 +78,7 @@ export class DiagramService {
     });
 
     this.currentDiagram.relationships.forEach((r, index)=>{
-      if ((r.leftPartner.title == title) || (r.rightPartner.title = title)) 
+      if ((r.leftPartner.title == title) || (r.rightPartner.title == title)) 
         this.currentDiagram.relationships.splice(index, 1);
     })
 
