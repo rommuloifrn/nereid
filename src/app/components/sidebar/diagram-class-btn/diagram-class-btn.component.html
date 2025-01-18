@@ -18,7 +18,7 @@
     
         <div>
             <form (submit)="addAttribute()">
-                <input class="w-32 text-sm bg-transparent font-normal border-b focus:outline-none focus:border-b-2" type="text" [(ngModel)]="attTitle" [ngModelOptions]="{standalone: true}" placeholder="new attribute">
+                <input class="w-32 simple-input text-sm" type="text" [(ngModel)]="attTitle" [ngModelOptions]="{standalone: true}" placeholder="New attribute">
             </form>
             <!-- <div (click)="addAttribute()" class="px-2 py-1 bg-violet-500 rounded-md w-max mt-1 font-normal cursor-pointer ">
                 create
