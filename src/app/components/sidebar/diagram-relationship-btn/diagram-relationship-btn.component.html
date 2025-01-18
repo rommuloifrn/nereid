@@ -1,5 +1,17 @@
-<div class="hover:cursor-pointer hover:shine text-sm" (click)="remove(relationship.id)">
-    {{relationship.leftPartner.title}} 
-    {{relationship.leftSymbol}} -- {{relationship.rightSymbol}} 
-    {{relationship.rightPartner.title}} ({{relationship.id}})
+<div class="hover:cursor-pointer text-sm m-1 flex" (click)="remove(relationship.id)">
+    <div class="text-zinc-300 mr-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-right"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+    </div>
+    
+    <div class="hover:text-purple-50">
+        <span class="font-semibold">
+            {{relationship.leftPartner.title}}&nbsp;
+        </span>
+        {{relationship.leftSymbol}} -- {{relationship.rightSymbol}} 
+        <span class="font-semibold">
+            &nbsp;{{relationship.rightPartner.title}} 
+        </span>
+    </div>
+
+    
 </div>
