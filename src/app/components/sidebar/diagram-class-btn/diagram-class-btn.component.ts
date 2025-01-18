@@ -22,6 +22,12 @@ export class DiagramClassBtnComponent {
 
   attTitle = "";
 
+  expanded: boolean = false;
+
+  toggleExpand() {
+    this.expanded = !this.expanded;
+  }
+
   addAttribute() {
     this.ds.addAtributeOnClass(this.class.title, new Attribute(this.attTitle))
     this.attTitle = "";

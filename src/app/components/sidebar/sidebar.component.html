@@ -25,9 +25,6 @@
         </div>
     
         <div [style.display]="!showRelationships ? 'block' : 'none'">
-            <div>
-                classes
-            </div>
             <!--(click)="ds.deleteClass(class.title)"-->
             <app-diagram-class-btn [class]="class" *ngFor="let class of classes" >
             </app-diagram-class-btn>
