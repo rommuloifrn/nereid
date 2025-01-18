@@ -1,19 +1,23 @@
-<aside class="bg-zinc-700 border border-zinc-500 w-52 pt-2 px-2 h-full overflow-y-scroll rounded-lg">
+<aside class="bg-zinc-700 border border-zinc-500 w-52  h-full overflow-y-scroll rounded-lg">
+    <div class="h-10 border-b border-zinc-500" ></div>
 
-    <div>
-        Relationships
-    </div>
-
-    <app-diagram-relationship-btn [relationship]="relationship" *ngFor="let relationship of relationships"/>
+    <div class="pt-2 px-2">
+        <div class="flex text-sm">
+            <button class="togas rounded-l-md shine">Classes</button>
+            <button class="togas rounded-r-md">Relationships</button>
+        </div>
     
-    <app-create-relationship-btn />
-
-    <div>
-        classes
+        <app-diagram-relationship-btn [relationship]="relationship" *ngFor="let relationship of relationships"/>
+        
+        <app-create-relationship-btn />
+    
+        <div>
+            classes
+        </div>
+        <!--(click)="ds.deleteClass(class.title)"-->
+        <app-diagram-class-btn [class]="class" *ngFor="let class of classes" >
+        </app-diagram-class-btn>
+    
+        <app-create-class-btn></app-create-class-btn>
     </div>
-    <!--(click)="ds.deleteClass(class.title)"-->
-    <app-diagram-class-btn [class]="class" *ngFor="let class of classes" >
-    </app-diagram-class-btn>
-
-    <app-create-class-btn></app-create-class-btn>
 </aside>
