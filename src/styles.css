@@ -29,6 +29,6 @@
     .simple-input {
         @apply border-b text-sm  font-normal transition
         border-slate-400 bg-transparent
-        focus:outline-none focus:border-b-2 focus:border-purple-500 focus:placeholder:text-zinc-200
+        focus:outline-none focus:border-b-2 focus:border-purple-500 focus:text-zinc-200
     }
 }
