@@ -11,7 +11,7 @@
         
     </div>
 
-    <div [style.display]="expanded ? 'block' : 'none'">
+    <div [style.display]="expanded ? 'block' : 'none'" class="ml-6">
         <div *ngFor="let att of class.attributes" class="text-zinc-200 text-sm font-normal">
             {{att.title}}
         </div>
