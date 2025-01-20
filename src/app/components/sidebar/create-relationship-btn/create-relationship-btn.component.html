@@ -1,11 +1,11 @@
 <form>
     <select class="bg-zinc-700 text-slate-100" name="" id="" [(ngModel)]="leftPartner" [ngModelOptions]="{standalone: true}">
-        <option selected>Left partner</option>
+        <option [ngValue]="null" disabled>Left partner</option>
         <option [class]="class" [ngValue]="class" *ngFor="let class of classes">{{class.title}}</option>
     </select> <br>
     
     <select class="bg-zinc-700 text-slate-100" name="" id="" [(ngModel)]="rightPartner" [ngModelOptions]="{standalone: true}">
-        <option value="">Right partner</option>
+        <option [ngValue]="null" disabled>Right partner</option>
         <option [class]="class" [ngValue]="class" *ngFor="let class of classes" value="{{class}}">{{class.title}}</option>
     </select>
     
