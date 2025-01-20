@@ -28,7 +28,16 @@
 
     .simple-input {
         @apply border-b text-sm  font-normal transition
-        border-slate-400 bg-transparent
+        border-slate-400 bg-transparent placeholder:text-zinc-500
         focus:outline-none focus:border-b-2 focus:border-purple-500 focus:text-zinc-200
+    }
+}
+
+@layer utilities {
+    .relationship-side {
+        @apply font-medium italic text-zinc-300;
+    }
+    .relationship-sideword {
+        @apply text-zinc-400;
     }
 }

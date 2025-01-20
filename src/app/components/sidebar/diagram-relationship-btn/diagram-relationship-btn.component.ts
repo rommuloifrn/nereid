@@ -20,7 +20,7 @@ export class DiagramRelationshipBtnComponent {
 
   ds: DiagramService = inject(DiagramService);
 
-  remove(id: number) {
-    this.ds.removeRelationship(id);
+  remove() {
+    this.ds.removeRelationship(this.relationship.id);
   }
 }
