@@ -45,7 +45,7 @@ export class DiagramService {
   }
 
   AddRelationship(leftPartner: Class, rightPartner: Class, leftSymbol: string, rightSymbol: string) {
-    let r: Relationship = new Relationship(this.lastRelationshipIdUsed++, leftPartner, leftSymbol, rightPartner, rightSymbol);
+    let r: Relationship = new Relationship(this.currentDiagram.nextRelationshipId++, leftPartner, leftSymbol, rightPartner, rightSymbol);
 
     this.currentDiagram.relationships.push(
       r
