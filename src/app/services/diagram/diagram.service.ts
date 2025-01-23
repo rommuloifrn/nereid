@@ -11,15 +11,21 @@ import { Relationship } from '../../relationship';
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {"classes":[], "relationships":[{
-    id:0,
-    leftPartner:{"title":"ximbas", "attributes":[]},
-    rightPartner:{"title":"ximbas", "attributes":[]},
-    leftSymbol:"",
-    rightSymbol:""
-  }]}
+  currentDiagram: Diagram = {
+    "classes":[], 
+    "relationships":[
+      {
+        id:0,
+        leftPartner:{"title":"ximbas", "attributes":[]},
+        rightPartner:{"title":"ximbas", "attributes":[]},
+        leftSymbol:"",
+        rightSymbol:""
+      }
+    ],
+    "nextRelationshipId":0
+  }
   bs: Subject<string> = new Subject();
-  lastRelationshipIdUsed = 0;
+  //nextRelationshipId = 0;
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -40,6 +46,7 @@ export class DiagramService {
 
   AddRelationship(leftPartner: Class, rightPartner: Class, leftSymbol: string, rightSymbol: string) {
     let r: Relationship = new Relationship(this.lastRelationshipIdUsed++, leftPartner, leftSymbol, rightPartner, rightSymbol);
+
     this.currentDiagram.relationships.push(
       r
     );
@@ -77,7 +84,7 @@ export class DiagramService {
     });
 
     this.currentDiagram.relationships.forEach((r, index)=>{
-      if ((r.leftPartner.title == title) || (r.rightPartner.title = title)) 
+      if ((r.leftPartner.title == title) || (r.rightPartner.title == title)) 
         this.currentDiagram.relationships.splice(index, 1);
     })
 
