@@ -44,14 +44,14 @@ export class DiagramService {
     return false;
   }
 
-  AddRelationship(leftPartner: Class, rightPartner: Class) {
-    let r: Relationship = new Relationship(this.currentDiagram.nextRelationshipId++, leftPartner, "", rightPartner, "");
+  AddRelationship(leftPartner: Class, rightPartner: Class, leftSymbol: string, rightSymbol: string) {
+    let r: Relationship = new Relationship(this.lastRelationshipIdUsed++, leftPartner, leftSymbol, rightPartner, rightSymbol);
+
     this.currentDiagram.relationships.push(
       r
     );
     this.saveDiagram();
     this.updateDiagramRender();
-    console.log(r.id);
     
   }
 
@@ -134,7 +134,7 @@ export class DiagramService {
     let body: string = "classDiagram\ndirection DT\n";
 
     for (var r of d.relationships) {
-      body = body.concat(r.leftPartner.title, " ", " -- ", " ", r.rightPartner.title, "\n");
+      body = body.concat(r.leftPartner.title, ("\"").concat(r.leftSymbol).concat("\""), " -- ", ("\"").concat(r.rightSymbol).concat("\""), r.rightPartner.title, "\n");
     }
 
     for (var c of d.classes) {

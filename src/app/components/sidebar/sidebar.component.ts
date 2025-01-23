@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Class } from '../../class';
+import { Relationship } from '../../relationship';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
+import { CreateRelationshipBtnComponent } from './create-relationship-btn/create-relationship-btn.component';
 import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.component';
 import { DiagramRelationshipBtnComponent } from './diagram-relationship-btn/diagram-relationship-btn.component';
-import { Relationship } from '../../relationship';
-import { CreateRelationshipBtnComponent } from './create-relationship-btn/create-relationship-btn.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -33,8 +33,14 @@ export class SidebarComponent implements OnInit {
     
   })
 
+  showRelationships: boolean = false;
+
   ngOnInit(): void {
     setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
+  }
+
+  toggleRelationships() {
+    this.showRelationships = !this.showRelationships;
   }
 
 }

@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .sidebar-icon {
+        @apply block;
+    }
+    .sidebar-icon-cage {
+        @apply block mr-2;
+    }
+
+    .togas {
+        @apply py-1 px-2 transition
+        bg-slate-600
+        ;
+    }
+
+    .shine {
+        @apply bg-purple-600
+    }
+
+    .primary-button {
+        @apply transition cursor-pointer p-2 px-3 rounded w-full
+        bg-purple-600 border-b border-r border-purple-700
+        hover:bg-purple-500;
+    }
+
+    .simple-input {
+        @apply border-b text-sm  font-normal transition
+        border-slate-400 bg-transparent placeholder:text-zinc-500
+        focus:outline-none focus:border-b-2 focus:border-purple-500 focus:text-zinc-200
+    }
+}
+
+@layer utilities {
+    .relationship-side {
+        @apply font-medium italic text-zinc-300;
+    }
+    .relationship-sideword {
+        @apply text-zinc-400;
+    }
+}
