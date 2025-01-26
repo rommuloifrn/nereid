@@ -1,10 +1,11 @@
-import { afterRender, Injectable } from '@angular/core';
+import { afterRender, inject, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
 import { Attribute } from '../../models/attribute';
 import { Class } from '../../models/class';
 import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,8 @@ export class DiagramService {
   bs: Subject<string> = new Subject();
   //nextRelationshipId = 0;
 
+  ss: StorageService = inject(StorageService);
+
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
   }
@@ -35,7 +38,7 @@ export class DiagramService {
     
     if (this.classTitleIsValid(title)) {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
-      this.saveDiagram();
+      this.ss.saveDiagram(this.currentDiagram);
       this.updateDiagramRender();
 
       return true;
@@ -50,7 +53,7 @@ export class DiagramService {
     this.currentDiagram.relationships.push(
       r
     );
-    this.saveDiagram();
+    this.ss.saveDiagram(this.currentDiagram);
     this.updateDiagramRender();
     
   }
@@ -64,7 +67,7 @@ export class DiagramService {
     let spliceIndex = this.currentDiagram.relationships.indexOf(target[0]);
     this.currentDiagram.relationships.splice(spliceIndex, 1);
 
-    this.saveDiagram();
+    this.ss.saveDiagram(this.currentDiagram);
     this.updateDiagramRender();
   }
 
@@ -88,7 +91,7 @@ export class DiagramService {
         this.currentDiagram.relationships.splice(index, 1);
     })
 
-    this.saveDiagram();
+    this.ss.saveDiagram(this.currentDiagram);
     this.updateDiagramRender()
   }
 
@@ -96,7 +99,7 @@ export class DiagramService {
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.title == classtitle) {
         c.attributes.push(att);
-        this.saveDiagram();
+        this.ss.saveDiagram(this.currentDiagram);
         this.updateDiagramRender()
       } 
     });
@@ -122,13 +125,6 @@ export class DiagramService {
     }
   }
 
-
-
-  saveDiagram() {
-    let stringDiagram = JSON.stringify(this.currentDiagram);
-    localStorage.setItem("diagram", stringDiagram);
-  }
-
   generateDiagram(d: Diagram){
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
     let body: string = "classDiagram\ndirection DT\n";
@@ -151,16 +147,10 @@ export class DiagramService {
 
   constructor() {
     afterRender(()=>{
-      this.loadDiagramFromStorage();
+      if (this.areWeOnBrowser()) {
+        this.currentDiagram = this.ss.loadDiagram();
+      }
     })
-  }
-
-  loadDiagramFromStorage() {
-    if (this.areWeOnBrowser()) {
-      let savedDiagram: Diagram = JSON.parse(localStorage.getItem("diagram")!);
-      if (savedDiagram === null) this.currentDiagram = new Diagram([], []);
-      else this.currentDiagram = savedDiagram;
-    }
   }
 
   areWeOnBrowser() {
