@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { Relationship } from '../../../relationship';
+import { Relationship } from '../../../models/relationship';
 import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({

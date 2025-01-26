@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Class } from '../../class';
+import { Class } from '../../models/class';
 import { DiagramService } from '../../services/diagram/diagram.service';
 
 @Component({

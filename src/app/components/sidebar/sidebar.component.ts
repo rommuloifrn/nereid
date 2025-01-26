@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Class } from '../../class';
-import { Relationship } from '../../relationship';
+import { Class } from '../../models/class';
+import { Relationship } from '../../models/relationship';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
 import { CreateRelationshipBtnComponent } from './create-relationship-btn/create-relationship-btn.component';

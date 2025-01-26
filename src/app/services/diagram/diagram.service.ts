@@ -1,10 +1,10 @@
 import { afterRender, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
-import { Attribute } from '../../attribute';
-import { Class } from '../../class';
-import { Diagram } from '../../diagram';
-import { Relationship } from '../../relationship';
+import { Attribute } from '../../models/attribute';
+import { Class } from '../../models/class';
+import { Diagram } from '../../models/diagram';
+import { Relationship } from '../../models/relationship';
 
 @Injectable({
   providedIn: 'root'
