@@ -36,6 +36,8 @@ export class DiagramService {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
   }
 
+  // Class
+
   createClass(title: string): boolean {
     
     if (this.classTitleIsValid(title)) {
@@ -46,6 +48,15 @@ export class DiagramService {
     }
     
     return false;
+  }
+
+  classTitleIsValid(title: string): boolean {
+    for (let x of this.currentDiagram.classes)
+      if (x.title == title) return false;
+
+    if (title == "") return false;
+
+    return true;
   }
 
   deleteClass(title: string) {
@@ -61,6 +72,18 @@ export class DiagramService {
 
     this.saveAndRender();
   }
+
+  createAttribute(classtitle: string, att: Attribute) {
+    this.currentDiagram.classes.forEach((c, index) => {
+      if (c.title == classtitle) {
+        c.attributes.push(att);
+      } 
+    });
+    this.saveAndRender();
+  }
+
+
+  // Relationship
 
   AddRelationship(leftPartner: Class, rightPartner: Class, leftSymbol: string, rightSymbol: string) {
     let r: Relationship = new Relationship(this.currentDiagram.nextRelationshipId++, leftPartner, leftSymbol, rightPartner, rightSymbol);
@@ -84,25 +107,11 @@ export class DiagramService {
     this.saveAndRender();
   }
 
-  classTitleIsValid(title: string): boolean {
-    for (let x of this.currentDiagram.classes)
-      if (x.title == title) return false;
 
-    if (title == "") return false;
-
-    return true;
-  }
 
   
 
-  addAtributeOnClass(classtitle: string, att: Attribute) {
-    this.currentDiagram.classes.forEach((c, index) => {
-      if (c.title == classtitle) {
-        c.attributes.push(att);
-      } 
-    });
-    this.saveAndRender();
-  }
+  
 
   saveAndRender() {
     this.ss.saveDiagram(this.currentDiagram);

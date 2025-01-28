@@ -29,7 +29,7 @@ export class DiagramClassBtnComponent {
   }
 
   addAttribute() {
-    this.ds.addAtributeOnClass(this.class.title, new Attribute(this.attTitle))
+    this.ds.createAttribute(this.class.title, new Attribute(this.attTitle))
     this.attTitle = "";
   }
 }
