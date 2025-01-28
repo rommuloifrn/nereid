@@ -40,8 +40,7 @@ export class DiagramService {
     
     if (this.classTitleIsValid(title)) {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
-      this.ss.saveDiagram(this.currentDiagram);
-      this.updateDiagramRender();
+      this.saveAndRender();
 
       return true;
     }
@@ -55,8 +54,7 @@ export class DiagramService {
     this.currentDiagram.relationships.push(
       r
     );
-    this.ss.saveDiagram(this.currentDiagram);
-    this.updateDiagramRender();
+    this.saveAndRender();
     
   }
 
@@ -69,8 +67,7 @@ export class DiagramService {
     let spliceIndex = this.currentDiagram.relationships.indexOf(target[0]);
     this.currentDiagram.relationships.splice(spliceIndex, 1);
 
-    this.ss.saveDiagram(this.currentDiagram);
-    this.updateDiagramRender();
+    this.saveAndRender();
   }
 
   classTitleIsValid(title: string): boolean {
@@ -93,18 +90,21 @@ export class DiagramService {
         this.currentDiagram.relationships.splice(index, 1);
     })
 
-    this.ss.saveDiagram(this.currentDiagram);
-    this.updateDiagramRender()
+    this.saveAndRender();
   }
 
   addAtributeOnClass(classtitle: string, att: Attribute) {
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.title == classtitle) {
         c.attributes.push(att);
-        this.ss.saveDiagram(this.currentDiagram);
-        this.updateDiagramRender()
       } 
     });
+    this.saveAndRender();
+  }
+
+  saveAndRender() {
+    this.ss.saveDiagram(this.currentDiagram);
+    this.updateDiagramRender()
   }
 
   async updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
