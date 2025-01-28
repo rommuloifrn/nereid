@@ -15,16 +15,10 @@ export class DiagramService {
 
   currentDiagram: Diagram = {
     "classes":[], 
-    "relationships":[
-      {
-        id:0,
-        leftPartner:{"title":"ximbas", "attributes":[]},
-        rightPartner:{"title":"ximbas", "attributes":[]},
-        leftSymbol:"",
-        rightSymbol:""
-      }
-    ],
-    "nextRelationshipId":0
+    "relationships":[],
+    
+    "nextRelationshipId":0,
+    "nextClassId":0,
   }
   bs: Subject<string> = new Subject();
   //nextRelationshipId = 0;
@@ -36,12 +30,20 @@ export class DiagramService {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
   }
 
+
+
   // Class
 
   createClass(title: string): boolean {
     
     if (this.classTitleIsValid(title)) {
-      this.currentDiagram.classes.push({"title":title,"attributes":[]});
+      this.currentDiagram.classes.push(
+        {
+          "id":this.currentDiagram.nextClassId++,
+          "title":title,
+          "attributes":[]
+        }
+      );
       this.saveAndRender();
 
       return true;
@@ -58,24 +60,25 @@ export class DiagramService {
 
     return true;
   }
-
-  deleteClass(title: string) {
+  
+  // fragment this thing in the future
+  deleteClass(classId: number) {
     this.currentDiagram.classes.forEach((c, index) => {
-      if (c.title == title) 
+      if (c.id == classId) 
         this.currentDiagram.classes.splice(index, 1); 
     });
 
     this.currentDiagram.relationships.forEach((r, index)=>{
-      if ((r.leftPartner.title == title) || (r.rightPartner.title == title)) 
+      if ((r.leftPartner.id == classId) || (r.rightPartner.id == classId)) 
         this.currentDiagram.relationships.splice(index, 1);
     })
 
     this.saveAndRender();
   }
 
-  createAttribute(classtitle: string, att: Attribute) {
+  createAttribute(classId: number, att: Attribute) {
     this.currentDiagram.classes.forEach((c, index) => {
-      if (c.title == classtitle) {
+      if (c.id == classId) {
         c.attributes.push(att);
       } 
     });

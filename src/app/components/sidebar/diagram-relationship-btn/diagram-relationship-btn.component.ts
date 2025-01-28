@@ -12,8 +12,8 @@ import { DiagramService } from '../../../services/diagram/diagram.service';
 export class DiagramRelationshipBtnComponent {
   @Input({required: true}) relationship: Relationship = {
     id:0,
-    leftPartner:{"title":"ximbas", "attributes":[]},
-    rightPartner:{"title":"ximbas", "attributes":[]},
+    leftPartner:{"id":0,"title":"ximbas", "attributes":[]},
+    rightPartner:{"id":0,"title":"ximbas", "attributes":[]},
     leftSymbol:"",
     rightSymbol:""
   };
