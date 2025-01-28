@@ -6,6 +6,7 @@ import { Class } from '../../models/class';
 import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
 import { StorageService } from '../storage/storage.service';
+import { TranspilerService } from '../transpiler/transpiler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,7 @@ export class DiagramService {
   //nextRelationshipId = 0;
 
   ss: StorageService = inject(StorageService);
+  ts: TranspilerService = inject(TranspilerService);
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -108,7 +110,7 @@ export class DiagramService {
   async updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
     if (this.areWeOnBrowser()) {
       const target: HTMLElement = document.getElementById("mermid")!
-      let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
+      let currentDiagramString: string = this.ts.objectToMermaid(this.currentDiagram)
     
       //target.innerHTML = '';
       
@@ -123,26 +125,6 @@ export class DiagramService {
 
       this.bs.next("");
     }
-  }
-
-  generateDiagram(d: Diagram){
-    let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\ndirection DT\n";
-
-    for (var r of d.relationships) {
-      body = body.concat(r.leftPartner.title, ("\"").concat(r.leftSymbol).concat("\""), " -- ", ("\"").concat(r.rightSymbol).concat("\""), r.rightPartner.title, "\n");
-    }
-
-    for (var c of d.classes) {
-      body = body.concat("class ", c.title, "\n");
-      for(var a of c.attributes) {
-        body = body.concat(c.title.concat(" : "), a.title, "\n");
-      }
-    }
-    
-    var final = title.concat(body);
-    console.log(final);
-    return final;
   }
 
   constructor() {
