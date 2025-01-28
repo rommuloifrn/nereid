@@ -7,6 +7,7 @@ import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
 import { StorageService } from '../storage/storage.service';
 import { TranspilerService } from '../transpiler/transpiler.service';
+import { ClassCapsule } from '../../capsules/classcapsule';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,16 @@ export class DiagramService {
     return false;
   }
 
+  updateClass(classId: number, title: string) {
+    let capsule: ClassCapsule = this.getClassById(classId);
+
+    if (capsule.hasSomething()) {
+       capsule.class!.title = title;
+    }
+
+    this.saveAndRender();
+  }
+
   classTitleIsValid(title: string): boolean {
     for (let x of this.currentDiagram.classes)
       if (x.title == title) return false;
@@ -74,6 +85,18 @@ export class DiagramService {
     })
 
     this.saveAndRender();
+  }
+
+  getClassById(classId: number): ClassCapsule {
+    let capsule: ClassCapsule = new ClassCapsule;
+
+    this.currentDiagram.classes.forEach((c) => {
+        if (c.id == classId) 
+          capsule.put(c);
+    });
+
+    return capsule;
+    
   }
 
   createAttribute(classId: number, att: Attribute) {
