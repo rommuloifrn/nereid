@@ -18,6 +18,6 @@ export class CreateClassBtnComponent {
   classTitle: string = "";
 
   create() {
-    if (this.diagramService.AddClass(this.classTitle)) this.classTitle = "";;
+    if (this.diagramService.createClass(this.classTitle)) this.classTitle = "";;
   }
 }
