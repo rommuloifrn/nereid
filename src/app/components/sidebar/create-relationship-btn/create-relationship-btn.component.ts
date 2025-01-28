@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Class } from '../../../class';
+import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({

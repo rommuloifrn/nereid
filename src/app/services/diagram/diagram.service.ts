@@ -1,10 +1,12 @@
-import { afterRender, Injectable } from '@angular/core';
+import { afterRender, inject, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
-import { Attribute } from '../../attribute';
-import { Class } from '../../class';
-import { Diagram } from '../../diagram';
-import { Relationship } from '../../relationship';
+import { Attribute } from '../../models/attribute';
+import { Class } from '../../models/class';
+import { Diagram } from '../../models/diagram';
+import { Relationship } from '../../models/relationship';
+import { StorageService } from '../storage/storage.service';
+import { TranspilerService } from '../transpiler/transpiler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,9 @@ export class DiagramService {
   bs: Subject<string> = new Subject();
   //nextRelationshipId = 0;
 
+  ss: StorageService = inject(StorageService);
+  ts: TranspilerService = inject(TranspilerService);
+
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
   }
@@ -35,8 +40,7 @@ export class DiagramService {
     
     if (this.classTitleIsValid(title)) {
       this.currentDiagram.classes.push({"title":title,"attributes":[]});
-      this.saveDiagram();
-      this.updateDiagramRender();
+      this.saveAndRender();
 
       return true;
     }
@@ -50,8 +54,7 @@ export class DiagramService {
     this.currentDiagram.relationships.push(
       r
     );
-    this.saveDiagram();
-    this.updateDiagramRender();
+    this.saveAndRender();
     
   }
 
@@ -64,8 +67,7 @@ export class DiagramService {
     let spliceIndex = this.currentDiagram.relationships.indexOf(target[0]);
     this.currentDiagram.relationships.splice(spliceIndex, 1);
 
-    this.saveDiagram();
-    this.updateDiagramRender();
+    this.saveAndRender();
   }
 
   classTitleIsValid(title: string): boolean {
@@ -88,24 +90,27 @@ export class DiagramService {
         this.currentDiagram.relationships.splice(index, 1);
     })
 
-    this.saveDiagram();
-    this.updateDiagramRender()
+    this.saveAndRender();
   }
 
   addAtributeOnClass(classtitle: string, att: Attribute) {
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.title == classtitle) {
         c.attributes.push(att);
-        this.saveDiagram();
-        this.updateDiagramRender()
       } 
     });
+    this.saveAndRender();
+  }
+
+  saveAndRender() {
+    this.ss.saveDiagram(this.currentDiagram);
+    this.updateDiagramRender()
   }
 
   async updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
     if (this.areWeOnBrowser()) {
       const target: HTMLElement = document.getElementById("mermid")!
-      let currentDiagramString: string = this.generateDiagram(this.currentDiagram)
+      let currentDiagramString: string = this.ts.objectToMermaid(this.currentDiagram)
     
       //target.innerHTML = '';
       
@@ -122,45 +127,12 @@ export class DiagramService {
     }
   }
 
-
-
-  saveDiagram() {
-    let stringDiagram = JSON.stringify(this.currentDiagram);
-    localStorage.setItem("diagram", stringDiagram);
-  }
-
-  generateDiagram(d: Diagram){
-    let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\ndirection DT\n";
-
-    for (var r of d.relationships) {
-      body = body.concat(r.leftPartner.title, ("\"").concat(r.leftSymbol).concat("\""), " -- ", ("\"").concat(r.rightSymbol).concat("\""), r.rightPartner.title, "\n");
-    }
-
-    for (var c of d.classes) {
-      body = body.concat("class ", c.title, "\n");
-      for(var a of c.attributes) {
-        body = body.concat(c.title.concat(" : "), a.title, "\n");
-      }
-    }
-    
-    var final = title.concat(body);
-    console.log(final);
-    return final;
-  }
-
   constructor() {
     afterRender(()=>{
-      this.loadDiagramFromStorage();
+      if (this.areWeOnBrowser()) {
+        this.currentDiagram = this.ss.loadDiagram();
+      }
     })
-  }
-
-  loadDiagramFromStorage() {
-    if (this.areWeOnBrowser()) {
-      let savedDiagram: Diagram = JSON.parse(localStorage.getItem("diagram")!);
-      if (savedDiagram === null) this.currentDiagram = new Diagram([], []);
-      else this.currentDiagram = savedDiagram;
-    }
   }
 
   areWeOnBrowser() {

@@ -1,8 +1,8 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Attribute } from '../../../attribute';
-import { Class } from '../../../class';
+import { Attribute } from '../../../models/attribute';
+import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({
