@@ -21,6 +21,8 @@ export class DiagramClassBtnComponent {
   ds: DiagramService = inject(DiagramService);
 
   attTitle = "";
+  editing: boolean = false;
+  editingValue = ''
 
   expanded: boolean = false;
 
@@ -31,5 +33,9 @@ export class DiagramClassBtnComponent {
   addAttribute() {
     this.ds.createAttribute(this.class.id, new Attribute(this.attTitle))
     this.attTitle = "";
+  }
+
+  edit() {
+    this.editing = !this.editing;
   }
 }

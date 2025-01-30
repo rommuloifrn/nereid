@@ -1,13 +1,13 @@
 import { afterRender, inject, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
+import { ClassCapsule } from '../../capsules/classcapsule';
 import { Attribute } from '../../models/attribute';
 import { Class } from '../../models/class';
 import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
 import { StorageService } from '../storage/storage.service';
 import { TranspilerService } from '../transpiler/transpiler.service';
-import { ClassCapsule } from '../../capsules/classcapsule';
 
 @Injectable({
   providedIn: 'root'
