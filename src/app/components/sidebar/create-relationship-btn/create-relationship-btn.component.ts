@@ -19,8 +19,8 @@ export class CreateRelationshipBtnComponent {
   classes: Class[] = this.ds.currentDiagram.classes
   leftPartner!: Class
   rightPartner!: Class
-  leftSymbol!: string;
-  rightSymbol!: string;
+  leftSymbol: string = "";
+  rightSymbol: string = "";
 
 
 
