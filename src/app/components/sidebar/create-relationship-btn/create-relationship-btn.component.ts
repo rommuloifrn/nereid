@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
+import { Diagram } from '../../../models/diagram';
 
 @Component({
   selector: 'app-create-relationship-btn',
@@ -16,7 +17,8 @@ import { DiagramService } from '../../../services/diagram/diagram.service';
 })
 export class CreateRelationshipBtnComponent {
   ds: DiagramService = inject(DiagramService);
-  classes: Class[] = this.ds.currentDiagram.classes
+
+  //classes: Class[] = this.ds.currentDiagram.classes
   leftPartner!: Class
   rightPartner!: Class
   leftSymbol: string = "";
@@ -25,12 +27,9 @@ export class CreateRelationshipBtnComponent {
 
 
   ngOnInit(): void {
-    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
+    //setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
-  ximbas = this.ds.bs.subscribe(()=>{
-    this.classes = this.ds.currentDiagram.classes
-  })
 
   create() {
     this.ds.AddRelationship(

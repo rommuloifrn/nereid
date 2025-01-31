@@ -8,19 +8,14 @@ import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
 import { StorageService } from '../storage/storage.service';
 import { TranspilerService } from '../transpiler/transpiler.service';
+import { DiagramElement } from '../../interfaces/element';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiagramService {
 
-  currentDiagram: Diagram = {
-    "classes":[], 
-    "relationships":[],
-    
-    "nextRelationshipId":0,
-    "nextClassId":0,
-  }
+  currentDiagram: Diagram = new Diagram();
   bs: Subject<string> = new Subject();
   //nextRelationshipId = 0;
 
@@ -39,11 +34,7 @@ export class DiagramService {
     
     if (this.classTitleIsValid(title)) {
       this.currentDiagram.classes.push(
-        {
-          "id":this.currentDiagram.nextClassId++,
-          "title":title,
-          "attributes":[]
-        }
+        new Class(title, this.currentDiagram.nextClassId++)
       );
       this.saveAndRender();
 
@@ -54,13 +45,17 @@ export class DiagramService {
   }
 
   updateClass(classId: number, title: string) {
-    let capsule: ClassCapsule = this.getClassById(classId);
+    this.currentDiagram.classes.forEach((c, index) => {
+      if (c.id == classId) 
+        c.title = title;
+    });
 
-    if (capsule.hasSomething()) {
-       capsule.class!.title = title;
-    }
-
+    console.log("-------------------------");
+    
+    console.log(this.currentDiagram);
     this.saveAndRender();
+    console.log(this.currentDiagram);
+    
   }
 
   classTitleIsValid(title: string): boolean {
@@ -87,18 +82,6 @@ export class DiagramService {
     this.saveAndRender();
   }
 
-  getClassById(classId: number): ClassCapsule {
-    let capsule: ClassCapsule = new ClassCapsule;
-
-    this.currentDiagram.classes.forEach((c) => {
-        if (c.id == classId) 
-          capsule.put(c);
-    });
-
-    return capsule;
-    
-  }
-
   createAttribute(classId: number, att: Attribute) {
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.id == classId) {
@@ -112,12 +95,18 @@ export class DiagramService {
   // Relationship
 
   AddRelationship(leftPartner: Class, rightPartner: Class, leftSymbol: string, rightSymbol: string) {
-    let r: Relationship = new Relationship(this.currentDiagram.nextRelationshipId++, leftPartner, leftSymbol, rightPartner, rightSymbol);
-
     this.currentDiagram.relationships.push(
-      r
+      new Relationship(
+        this.currentDiagram.nextRelationshipId++, 
+        leftPartner, 
+        leftSymbol, 
+        rightPartner, 
+        rightSymbol
+      )
     );
     this.saveAndRender();
+    console.log(this.currentDiagram.relationships);
+    
     
   }
 
@@ -135,7 +124,9 @@ export class DiagramService {
 
 
 
-  
+  trackById(index: number, e: DiagramElement): number {
+    return e.id;
+  }
 
   
 

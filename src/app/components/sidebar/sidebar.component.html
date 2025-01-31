@@ -20,14 +20,14 @@
     
         <div class="pt-2" [style.display]="showRelationships ? 'block' : 'none'">
             
-            <app-diagram-relationship-btn [relationship]="relationship" *ngFor="let relationship of relationships"/>
+            <app-diagram-relationship-btn [relationship]="relationship" *ngFor="let relationship of ds.currentDiagram.relationships; trackBy: trackById"/>
             
             <app-create-relationship-btn />
         </div>
     
         <div [style.display]="!showRelationships ? 'block' : 'none'">
             <!--(click)="ds.deleteClass(class.title)"-->
-            <app-diagram-class-btn [class]="class" *ngFor="let class of classes" >
+            <app-diagram-class-btn [class]="class" *ngFor="let class of ds.currentDiagram.classes; trackBy: trackById" >
             </app-diagram-class-btn>
         
             <app-create-class-btn></app-create-class-btn>
