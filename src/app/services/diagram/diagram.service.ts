@@ -1,14 +1,13 @@
 import { afterRender, inject, Injectable } from '@angular/core';
 import mermaid from 'mermaid';
 import { Subject } from 'rxjs';
-import { ClassCapsule } from '../../capsules/classcapsule';
+import { DiagramElement } from '../../interfaces/element';
 import { Attribute } from '../../models/attribute';
 import { Class } from '../../models/class';
 import { Diagram } from '../../models/diagram';
 import { Relationship } from '../../models/relationship';
 import { StorageService } from '../storage/storage.service';
 import { TranspilerService } from '../transpiler/transpiler.service';
-import { DiagramElement } from '../../interfaces/element';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +20,8 @@ export class DiagramService {
 
   ss: StorageService = inject(StorageService);
   ts: TranspilerService = inject(TranspilerService);
+
+  debug: boolean = false;
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -104,10 +105,7 @@ export class DiagramService {
         rightSymbol
       )
     );
-    this.saveAndRender();
-    console.log(this.currentDiagram.relationships);
-    
-    
+    this.saveAndRender();    
   }
 
   removeRelationship(id: number) {
@@ -132,7 +130,9 @@ export class DiagramService {
 
   saveAndRender() {
     this.ss.saveDiagram(this.currentDiagram);
-    this.updateDiagramRender()
+    this.updateDiagramRender();
+    if (this.debug) console.log(this.currentDiagram);
+    
   }
 
   async updateDiagramRender(){ // TODO: lógica pra caso nao haja diagrama no localStorage
