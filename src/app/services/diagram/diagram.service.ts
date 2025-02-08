@@ -67,6 +67,14 @@ export class DiagramService {
 
     return true;
   }
+
+  getClassById(id: number): Class | void {
+    let result;
+    this.currentDiagram.classes.forEach((c) =>{
+      if (c.id == id) result = c;
+    })
+    return result;
+  }
   
   // fragment this thing in the future
   deleteClass(classId: number) {
@@ -106,6 +114,19 @@ export class DiagramService {
       )
     );
     this.saveAndRender();    
+  }
+
+  AddRelationshipAlt(leftId: number, leftSymbol: string, rightSymbol: string, rightId: number) {
+    this.currentDiagram.relationships.push(
+      new Relationship(
+        this.currentDiagram.nextRelationshipId++, 
+        this.getClassById(leftId)!, 
+        leftSymbol, 
+        this.getClassById(rightId)!, 
+        rightSymbol
+      )
+    );
+    this.saveAndRender();   
   }
 
   removeRelationship(id: number) {

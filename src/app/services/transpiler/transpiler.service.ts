@@ -11,7 +11,12 @@ export class TranspilerService {
     let body: string = "classDiagram\ndirection DT\n";
 
     for (var r of d.relationships) {
-      body = body.concat(r.leftPartner.title, ("\"").concat(r.leftSymbol).concat("\""), " -- ", ("\"").concat(r.rightSymbol).concat("\""), r.rightPartner.title, "\n");
+      body = body.concat(
+        r.leftPartner.title, 
+        ("\"").concat(r.leftSymbol).concat("\""), 
+        " -- ", ("\"").concat(r.rightSymbol).concat("\""), 
+        r.rightPartner.title, "\n"
+      );
     }
 
     for (var c of d.classes) {

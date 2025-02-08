@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
-import { Diagram } from '../../../models/diagram';
 
 @Component({
   selector: 'app-create-relationship-btn',
@@ -32,9 +31,11 @@ export class CreateRelationshipBtnComponent {
 
 
   create() {
-    this.ds.AddRelationship(
-      this.leftPartner, this.rightPartner, this.leftSymbol, this.rightSymbol
-    )
+    // this.ds.AddRelationship(
+    //   this.leftPartner, this.rightPartner, this.leftSymbol, this.rightSymbol
+    // )
+
+    this.ds.AddRelationshipAlt(this.leftPartner.id, this.leftSymbol, this.rightSymbol, this.rightPartner.id);
     this.leftSymbol = this.rightSymbol = "";
   }
 }

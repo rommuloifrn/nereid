@@ -18,4 +18,20 @@ export class Diagram {
         this.nextRelationshipId = 0;
         this.nextClassId = 0;
     }
+
+    updateClasss(classId: number, title: string): void {
+        this.classes.forEach((c, index) => {
+          if (c.id == classId) 
+            c.title = title;
+        });
+    
+        console.log("-------------------------");
+        
+        console.log(this);
+        
+      }
+    printa() {
+        //console.log(this);
+        
+    }
 }
