@@ -47,16 +47,19 @@ export class DiagramService {
 
   updateClass(classId: number, title: string) {
     this.currentDiagram.classes.forEach((c, index) => {
-      if (c.id == classId) 
+      if (c.id == classId)  {
         c.title = title;
-    });
 
-    console.log("-------------------------");
+        this.currentDiagram.relationships.forEach(
+          (r)=> {
+            if (r.leftPartner.id == c.id) r.leftPartner = c;
+            if (r.rightPartner.id == c.id) r.rightPartner = c;
+          }
+        )
+      }
+    });
     
-    console.log(this.currentDiagram);
     this.saveAndRender();
-    console.log(this.currentDiagram);
-    
   }
 
   classTitleIsValid(title: string): boolean {
