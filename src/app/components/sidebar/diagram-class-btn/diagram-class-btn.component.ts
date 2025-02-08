@@ -35,7 +35,12 @@ export class DiagramClassBtnComponent {
     this.attTitle = "";
   }
 
-  edit() {
+  flipEdit() {
     this.editing = !this.editing;
+  }
+
+  submitEdit(classId: number, editingValue: string) {
+    this.ds.updateClass(classId, editingValue);
+    this.flipEdit()
   }
 }
