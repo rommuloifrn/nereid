@@ -16,26 +16,26 @@ import { DiagramService } from '../../../services/diagram/diagram.service';
 })
 export class CreateRelationshipBtnComponent {
   ds: DiagramService = inject(DiagramService);
-  classes: Class[] = this.ds.currentDiagram.classes
+
+  //classes: Class[] = this.ds.currentDiagram.classes
   leftPartner!: Class
   rightPartner!: Class
-  leftSymbol!: string;
-  rightSymbol!: string;
+  leftSymbol: string = "";
+  rightSymbol: string = "";
 
 
 
   ngOnInit(): void {
-    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
+    //setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
   }
 
-  ximbas = this.ds.bs.subscribe(()=>{
-    this.classes = this.ds.currentDiagram.classes
-  })
 
   create() {
-    this.ds.AddRelationship(
-      this.leftPartner, this.rightPartner, this.leftSymbol, this.rightSymbol
-    )
+    // this.ds.AddRelationship(
+    //   this.leftPartner, this.rightPartner, this.leftSymbol, this.rightSymbol
+    // )
+
+    this.ds.AddRelationshipAlt(this.leftPartner.id, this.leftSymbol, this.rightSymbol, this.rightPartner.id);
     this.leftSymbol = this.rightSymbol = "";
   }
 }

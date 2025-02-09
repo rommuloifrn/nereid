@@ -1,6 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastMaker } from '../../../../toastify';
 import { Attribute } from '../../../models/attribute';
 import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
@@ -17,10 +18,12 @@ import { DiagramService } from '../../../services/diagram/diagram.service';
   styleUrl: './diagram-class-btn.component.css'
 })
 export class DiagramClassBtnComponent {
-  @Input({required: true}) class: Class = {'title':'', 'attributes': []};
+  @Input({required: true}) class: Class = {'id':0,'title':'', 'attributes': []};
   ds: DiagramService = inject(DiagramService);
 
   attTitle = "";
+  editing: boolean = false;
+  editingValue = ''
 
   expanded: boolean = false;
 
@@ -29,7 +32,17 @@ export class DiagramClassBtnComponent {
   }
 
   addAttribute() {
-    this.ds.addAtributeOnClass(this.class.title, new Attribute(this.attTitle))
+    this.ds.createAttribute(this.class.id, new Attribute(this.attTitle))
     this.attTitle = "";
+  }
+
+  flipEdit() {
+    this.editing = !this.editing;
+  }
+
+  submitEdit(classId: number, editingValue: string) {
+    if (this.ds.updateClass(classId, editingValue))
+      this.flipEdit()
+    else ToastMaker.spitToast("Hey, a class with that name already exists.")
   }
 }

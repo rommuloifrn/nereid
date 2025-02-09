@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import "toastify-js/src/toastify.css";
+import { ToastMaker } from '../../../../toastify';
 import { DiagramService } from '../../../services/diagram/diagram.service';
 
 @Component({
@@ -18,6 +20,9 @@ export class CreateClassBtnComponent {
   classTitle: string = "";
 
   create() {
-    if (this.diagramService.AddClass(this.classTitle)) this.classTitle = "";;
+    if (this.diagramService.createClass(this.classTitle)) this.classTitle = "";
+    else {
+      ToastMaker.spitToast('Hey, a class with that name was already created.')
+    }
   }
 }
