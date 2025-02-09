@@ -2,7 +2,6 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastMaker } from '../../../../toastify';
-import { Attribute } from '../../../models/attribute';
 import { Class } from '../../../models/class';
 import { DiagramService } from '../../../services/diagram/diagram.service';
 
@@ -32,7 +31,7 @@ export class DiagramClassBtnComponent {
   }
 
   addAttribute() {
-    this.ds.createAttribute(this.class.id, new Attribute(this.attTitle))
+    this.ds.createAttribute(this.class.id, this.attTitle)
     this.attTitle = "";
   }
 

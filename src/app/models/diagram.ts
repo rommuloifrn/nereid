@@ -6,6 +6,7 @@ export class Diagram {
     relationships: Relationship[];
     nextRelationshipId: number;
     nextClassId: number;
+    nextAttributeId: number;
 
     constructor(classes?: Class[], relationships?: Relationship[]) {
         if (classes && relationships) {
@@ -17,6 +18,7 @@ export class Diagram {
         }
         this.nextRelationshipId = 0;
         this.nextClassId = 0;
+        this.nextAttributeId = 0;
     }
 
     updateClasss(classId: number, title: string): void {

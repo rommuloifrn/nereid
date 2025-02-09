@@ -21,7 +21,7 @@ export class DiagramService {
   ss: StorageService = inject(StorageService);
   ts: TranspilerService = inject(TranspilerService);
 
-  debug: boolean = false;
+  debug: boolean = true;
 
   initializeMermaid() {
     mermaid.initialize({startOnLoad: false, class: {useMaxWidth:false}, theme:'dark'});
@@ -100,7 +100,9 @@ export class DiagramService {
     this.saveAndRender();
   }
 
-  createAttribute(classId: number, att: Attribute) {
+  createAttribute(classId: number, title: string) {
+    let att = new Attribute(this.currentDiagram.nextAttributeId++, title);
+
     this.currentDiagram.classes.forEach((c, index) => {
       if (c.id == classId) {
         c.attributes.push(att);
