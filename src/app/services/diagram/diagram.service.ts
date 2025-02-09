@@ -111,6 +111,27 @@ export class DiagramService {
     this.saveAndRender();
   }
 
+  deleteAttribute(classId: number, attributeId: number) {
+    let c!: Class;
+
+    this.currentDiagram.classes.forEach((cc)=>{
+      if (cc.id == classId) c = cc;
+    })
+
+    c.attributes.forEach(
+      (a, index)=>{
+        if (a.id == attributeId) {
+          c.attributes.splice(index, 1);
+          console.log('matou');
+          console.log(c);
+          
+        }
+      }
+    )
+    console.log('delete');
+    this.saveAndRender();
+  }
+
 
   // Relationship
 

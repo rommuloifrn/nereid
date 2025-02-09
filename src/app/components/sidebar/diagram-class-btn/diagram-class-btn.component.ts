@@ -17,7 +17,7 @@ import { DiagramService } from '../../../services/diagram/diagram.service';
   styleUrl: './diagram-class-btn.component.css'
 })
 export class DiagramClassBtnComponent {
-  @Input({required: true}) class: Class = {'id':0,'title':'', 'attributes': []};
+  @Input({required: true}) class!: Class;
   ds: DiagramService = inject(DiagramService);
 
   attTitle = "";
@@ -33,6 +33,10 @@ export class DiagramClassBtnComponent {
   addAttribute() {
     this.ds.createAttribute(this.class.id, this.attTitle)
     this.attTitle = "";
+  }
+
+  deleteAttribute(classId: number, attributeId: number) {
+    this.ds.deleteAttribute(this.class.id, attributeId);
   }
 
   flipEdit() {
