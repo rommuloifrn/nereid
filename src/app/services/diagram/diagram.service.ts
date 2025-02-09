@@ -45,21 +45,27 @@ export class DiagramService {
     return false;
   }
 
-  updateClass(classId: number, title: string) {
-    this.currentDiagram.classes.forEach((c, index) => {
-      if (c.id == classId)  {
-        c.title = title;
+  updateClass(classId: number, title: string): boolean {
+    if (this.classTitleIsValid(title)) {
+      this.currentDiagram.classes.forEach((c, index) => {
+        if (c.id == classId)  {
+          c.title = title;
+  
+          this.currentDiagram.relationships.forEach(
+            (r)=> {
+              if (r.leftPartner.id == c.id) r.leftPartner = c;
+              if (r.rightPartner.id == c.id) r.rightPartner = c;
+            }
+          )
+        }
+      });
+      
+      this.saveAndRender();
+  
+      return true;
+    }
 
-        this.currentDiagram.relationships.forEach(
-          (r)=> {
-            if (r.leftPartner.id == c.id) r.leftPartner = c;
-            if (r.rightPartner.id == c.id) r.rightPartner = c;
-          }
-        )
-      }
-    });
-    
-    this.saveAndRender();
+    return false;
   }
 
   classTitleIsValid(title: string): boolean {
