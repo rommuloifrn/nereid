@@ -1,8 +1,9 @@
-<div class=" transition font-semibold p-2 mx-1 rounded">
+<div class=" transition font-semibold py-2 mx-1 rounded">
     
         <form id="form1" (submit)="create()">
-            <input type="text" [(ngModel)]="classTitle" [ngModelOptions]="{standalone: true}" class="w-full  border-b border-zinc-300 bg-transparent text-sm focus:outline-none focus:border-b-2 font-normal" placeholder="Type the name for a class">
+            <input type="text" [(ngModel)]="classTitle" [ngModelOptions]="{standalone: true}" class="simple-input w-full" placeholder="Type a name for your class">
         </form>
     
-    <div (click)="create()" class="w-min hover:text-green-600 transition cursor-pointer">Create</div>
+    
 </div>
+<div (click)="create()" class="primary-button">Create</div>

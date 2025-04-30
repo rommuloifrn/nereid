@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Class } from '../../class';
+import { Class } from '../../models/class';
+import { Relationship } from '../../models/relationship';
 import { DiagramService } from '../../services/diagram/diagram.service';
 import { CreateClassBtnComponent } from './create-class-btn/create-class-btn.component';
+import { CreateRelationshipBtnComponent } from './create-relationship-btn/create-relationship-btn.component';
 import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.component';
+import { DiagramRelationshipBtnComponent } from './diagram-relationship-btn/diagram-relationship-btn.component';
+import { Diagram } from '../../models/diagram';
+import { DiagramElement } from '../../interfaces/element';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,24 +16,24 @@ import { DiagramClassBtnComponent } from './diagram-class-btn/diagram-class-btn.
   imports: [
     CommonModule,
     CreateClassBtnComponent,
-    DiagramClassBtnComponent
+    DiagramClassBtnComponent,
+    DiagramRelationshipBtnComponent,
+    CreateRelationshipBtnComponent
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   ds: DiagramService = inject(DiagramService)
 
-  classes: Class[] = this.ds.currentDiagram.classes //this.ds.getDiagramFromLocalStorage().classes
-  ximbas = this.ds.bs.subscribe(()=>{
-    this.classes = this.ds.currentDiagram.classes
-  })
+  showRelationships: boolean = false;
 
-  ngOnInit(): void {
-    setTimeout(()=>{this.classes=this.ds.currentDiagram.classes}, 100) 
+  trackById(index: number, e: DiagramElement): number {
+    return e.id;
   }
 
-  updateClasses():void {
-    this.classes = this.ds.currentDiagram.classes
+  toggleRelationships() {
+    this.showRelationships = !this.showRelationships;
   }
+
 }
