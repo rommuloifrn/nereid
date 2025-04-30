@@ -8,7 +8,7 @@ export class TranspilerService {
 
   objectToMermaid(d: Diagram): string {
     let title = ''//"---\n title: EXAMPLETITLE\n ---\n"
-    let body: string = "classDiagram\ndirection DT\n";
+    let body: string = `classDiagram\ndirection ${d.direction.value}\n`
 
     for (var r of d.relationships) {
       body = body.concat(

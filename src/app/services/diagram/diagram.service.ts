@@ -182,6 +182,17 @@ export class DiagramService {
     }
   }
 
+
+  rotate() {
+    //this.currentDiagram.direction.next();
+    if (this.currentDiagram.direction.value == "RL") this.currentDiagram.direction.value = "TD"
+    else if (this.currentDiagram.direction.value == "TD") this.currentDiagram.direction.value = "RL"
+
+    console.log(this.ts.objectToMermaid(this.currentDiagram));
+    
+    this.saveAndRender()
+  }
+
   constructor() {
     afterRender(()=>{
       if (this.areWeOnBrowser()) {

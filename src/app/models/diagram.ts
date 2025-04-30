@@ -1,3 +1,4 @@
+import { DiagramDirection } from "./direction";
 import { Class } from "./class";
 import { Relationship } from "./relationship";
 
@@ -6,6 +7,7 @@ export class Diagram {
     relationships: Relationship[];
     nextRelationshipId: number;
     nextClassId: number;
+    direction: DiagramDirection;
 
     constructor(classes?: Class[], relationships?: Relationship[]) {
         if (classes && relationships) {
@@ -15,6 +17,7 @@ export class Diagram {
             this.classes = [];
             this.relationships = [];
         }
+        this.direction = new DiagramDirection();
         this.nextRelationshipId = 0;
         this.nextClassId = 0;
     }
